@@ -10,7 +10,7 @@ const pathToStatic = path.resolve(__dirname, '../FE/dist/web-application-of-the-
 
 app.use(express.static(pathToStatic));
 
-app.get('/*', (req, res) => res.sendFile(path.resolve(pathToStatic, './index.html')));
+app.get('/', (req, res) => res.sendFile(path.resolve(pathToStatic, './index.html')));
 
 const server = http.createServer(app);
 

@@ -1,7 +1,15 @@
+import { AppComponent } from './app.component';
+import { IsUserLoggedIn } from './core/guards/isUserLoggedIn';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    canActivate: [IsUserLoggedIn],
+    component: AppComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
