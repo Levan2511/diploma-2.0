@@ -1,7 +1,7 @@
 import { HttpService } from './../../../core/services/http.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lk-login',
@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      uid: this.fb.control(''),
-      password: this.fb.control('')
+      uid: this.fb.control('', [Validators.required]),
+      password: this.fb.control('', [Validators.required])
     })
   }
 
