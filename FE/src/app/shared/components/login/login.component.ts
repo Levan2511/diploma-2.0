@@ -1,3 +1,4 @@
+import { HttpService } from './../../../core/services/http.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private http: HttpService,
   ) { }
 
   ngOnInit(): void {
