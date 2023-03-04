@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('login action', this.form.value)
+    this.http.get('https://bloomberg-market-and-financial-news.p.rapidapi.com/market/get-price-chart', {
+      headers: {
+        'X-RapidAPI-Key': 'SIGN-UP-FOR-KEY',
+        'X-RapidAPI-Host': 'bloomberg-market-and-financial-news.p.rapidapi.com'
+      },
+      params: {id: 'inmex:ind', interval: 'y1'},
+    }).pipe(
+    ).subscribe();
   }
 }

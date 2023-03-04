@@ -1,3 +1,5 @@
+$max-input-width: 250px;
+
 :host {
     display: flex;
     justify-content: center;
@@ -16,12 +18,12 @@
 
         mat-form-field {
             width: 100%;
-            max-width: 250px;
+            max-width: $max-input-width;
         }
 
         .submit-btn {
             width: 100%;
-            max-width: 250px;
+            max-width: $max-input-width;
         }
     }
 
