@@ -1,3 +1,5 @@
+import { LoginComponent } from './shared/components/login/login.component';
+import { LayoutComponent } from './shared/components/layout/layout.component';
 import { AppComponent } from './app.component';
 import { IsUserLoggedIn } from './core/guards/isUserLoggedIn';
 import { NgModule } from '@angular/core';
@@ -7,8 +9,12 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [IsUserLoggedIn],
-    component: AppComponent
-  }
+    component: LayoutComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
 ];
 
 @NgModule({
