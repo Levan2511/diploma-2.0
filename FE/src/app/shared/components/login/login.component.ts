@@ -2,6 +2,7 @@ import { HttpService } from './../../../core/services/http.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthorizationService } from 'src/app/core/services/authorization.service';
 
 @Component({
   selector: 'lk-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpService,
+    private authService: AuthorizationService
   ) { }
 
   ngOnInit(): void {
@@ -26,13 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.http.get('https://bloomberg-market-and-financial-news.p.rapidapi.com/market/get-price-chart', {
-      headers: {
-        'X-RapidAPI-Key': 'SIGN-UP-FOR-KEY',
-        'X-RapidAPI-Host': 'bloomberg-market-and-financial-news.p.rapidapi.com'
-      },
-      params: {id: 'inmex:ind', interval: 'y1'},
-    }).pipe(
-    ).subscribe();
+    this.authService.login(this.form.value.uid, this.form.value.password)
   }
 }
