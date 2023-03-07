@@ -12,7 +12,7 @@ export class AuthorizationService {
   ) { }
 
   login(uid: string, password: string) {
-    this.http.post('http://localhost:3000/login', {
+    this.http.post('/api/login', {
       uid,
       password
     }).subscribe();

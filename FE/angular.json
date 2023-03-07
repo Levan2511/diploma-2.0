@@ -72,10 +72,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "web-application-of-the-curriculum-management-system:build:production"
+              "browserTarget": "web-application-of-the-curriculum-management-system:build:production",
+              "proxyConfig": "src/proxy.config.json"
             },
             "development": {
-              "browserTarget": "web-application-of-the-curriculum-management-system:build:development"
+              "browserTarget": "web-application-of-the-curriculum-management-system:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
