@@ -1,4 +1,4 @@
-import { tap, catchError, of } from 'rxjs';
+import { tap, catchError, of, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -42,7 +42,7 @@ export class HttpService {
       tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
       catchError((err) => {
         this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
-        return of(new Error(err));
+        return throwError(() => new Error(err));
       })
     );
   }

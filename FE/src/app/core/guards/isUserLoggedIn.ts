@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { map, tap } from 'rxjs';
 import { AuthorizationService } from '../services/authorization.service';
 
 @Injectable({
@@ -13,9 +14,9 @@ export class IsUserLoggedIn implements CanActivate {
     ) {}
 
     canActivate() {
-        if (!this.authService.isUserLoggedIn) {
-            this.router.navigate(['login'])
-        }
-        return true;
+
+        return this.authService.isUserLoggedIn$.pipe(
+            map((IsUserLoggedIn) => IsUserLoggedIn ? true : this.router.createUrlTree(['login']))
+        );
     }
 }
