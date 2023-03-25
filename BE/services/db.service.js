@@ -1,11 +1,4 @@
 const fs = require('fs').promises;
-fs.readFile("./customer.json", "utf8", (err, jsonString) => {
-  if (err) {
-    console.log("File read failed:", err);
-    return;
-  }
-  console.log("File data:", jsonString);
-});
 const path = require('path')
 
 class DatabaseService {
@@ -22,8 +15,9 @@ class DatabaseService {
     }
 
     async getUsers() {
-        const res = await fetch(pathToDB);
-        return res.json();
+        const res = JSON.parse(await fs.readFile(this.pathToDB));
+
+        return res.users;
     }
 }
 

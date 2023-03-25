@@ -41,7 +41,7 @@ export class HttpService {
     return this.http.post(url, body, opts).pipe(
       tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
       catchError((err) => {
-        this.toastr.error(err.message || this.toastrConfig.errorMsg);
+        this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
         return of(new Error(err));
       })
     );

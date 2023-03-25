@@ -1,10 +1,21 @@
-const express = require('express')
+const express = require('express');
+const LoginService = require('../services/login.service');
 const authRouter = express.Router();
 
-authRouter.post('/', (req, res) => {
+const loginService = new LoginService();
+
+authRouter.post('/', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    return res.json({ token: 'tokeeen' });
+    const { uid, password } = req.body;
+
+    const isUserExists = await loginService.isUserExists(uid, password);
+
+    if (isUserExists) {
+        return res.status(200).json(true)
+    }
+
+    return res.status(404).json({ message: 'Cannot find a user with provided data' })
 });
 
 module.exports = authRouter;
