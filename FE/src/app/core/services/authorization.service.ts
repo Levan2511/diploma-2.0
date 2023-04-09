@@ -33,6 +33,11 @@ export class AuthorizationService {
     );
   }
 
+  logout(): void {
+    this.setIsLoginValue(false);
+    this.router.navigate(['login']);
+  }
+
   private setIsUserLoggedInToLocal(val: string) {
     localStorage.setItem(isLoggedInLocalKey, val);
   }
