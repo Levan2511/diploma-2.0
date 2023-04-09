@@ -1,0 +1,16 @@
+<form [formGroup]="epForm">
+  <mat-form-field appearance="fill" class="w-100">
+    <mat-label>Навчальний план</mat-label>
+    <input type="text"
+            matInput
+            formControlName="ep"
+            [matAutocomplete]="autoGroup">
+      <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-optgroup *ngFor="let group of stateGroupOptions$ | async" [label]="group.department">
+          <mat-option *ngFor="let name of group.names" [value]="name">
+            {{name}}
+          </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
