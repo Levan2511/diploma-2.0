@@ -1,1 +1,24 @@
+
 <lk-header></lk-header>
+
+<div class="container">
+  <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="center" [animationDuration]="300">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>search</mat-icon>
+        Пошук навчальних планів
+      </ng-template>
+      
+      <lk-search-wrapper></lk-search-wrapper>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>add</mat-icon>
+        Створити навчальний план
+      </ng-template>
+      
+      <lk-add-ep-wrapper></lk-add-ep-wrapper>
+    </mat-tab>
+  </mat-tab-group>
+</div>
