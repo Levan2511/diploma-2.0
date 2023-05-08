@@ -9,29 +9,25 @@ export interface EducationPlanForTerm {
   name: string;
   department: string;
   lectures: number;
-  lectures1: ActionCell;
-  lectures2: ActionCell;
+  exam: string;
+  test: string;
+  test2: string;
+  lectures1: string;
+  lectures2: string;
   labs: number;
-  labs1: ActionCell;
-  labs2: ActionCell;
+  labs1: string;
+  labs2: string;
   practical: number;
-  practical1: ActionCell;
-  practical2: ActionCell;
+  practical1: string;
+  practical2: string;
   classHours: number;
   selfWork: number;
   totalHours: number;
-  credits: ActionCell;
-  delete: ActionCell;
-  exam: ActionCell;
-  test: ActionCell;
-  test2: ActionCell;
-  RGR: ActionCell;
-  RR: ActionCell;
-  RK: ActionCell;
-  KR: ActionCell;
-  KP: ActionCell;
-}
-
-export interface ActionCell {
-  type: 'checkbox' | 'radio' | 'button' | 'input:number'
+  credits: number;
+  delete: string;
+  RGR: string;
+  RR: string;
+  RK: string;
+  KR: string;
+  KP: string;
 }

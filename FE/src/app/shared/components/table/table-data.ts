@@ -13,7 +13,7 @@ export const tableColumns: {
     key: 'term',
   },
   {
-    name: 'Навчальна диспипліна',
+    name: 'Навчальна дисципліна',
     key: 'name',
   },
   {
@@ -104,59 +104,27 @@ export const educationPlan: EducationPlanForTerm[] = [
     term: 2,
     name: 'Test',
     department: '503',
-    delete: {
-      type: 'button',
-    },
-    credits: {
-      type: 'input:number'
-    },
     totalHours: 100,
     selfWork: 20,
     classHours: 25,
     practical: 5,
-    practical1: {
-      type: 'input:number'
-    },
-    practical2: {
-      type: 'input:number'
-    },
     labs: 30,
-    labs1: {
-      type: 'input:number'
-    },
-    labs2: {
-      type: 'input:number'
-    },
     lectures: 40,
-    lectures1: {
-      type: 'input:number'
-    },
-    lectures2: {
-      type: 'input:number'
-    },
-    exam: {
-      type: 'checkbox'
-    },
-    test: {
-      type: 'checkbox'
-    },
-    test2: {
-      type: 'checkbox'
-    },
-    RGR: {
-      type: 'checkbox'
-    },
-    RR: {
-      type: 'checkbox'
-    },
-    KP: {
-      type: 'checkbox'
-    },
-    KR: {
-      type: 'checkbox'
-    },
-    RK: {
-      type: 'checkbox'
-    }
+    exam: 'exam',
+    test: 'test',
+    test2: 'test2',
+    practical1: 'practical1',
+    practical2: 'practical2',
+    labs1: 'labs1',
+    labs2: 'labs2',
+    lectures1: 'lectures1',
+    lectures2: 'lectures2',
+    RGR: 'RGR',
+    RR: 'RR',
+    KP: 'KP',
+    KR: 'KR',
+    RK: 'RK',
+    credits: 10,
+    delete: 'Delete',
   }
 ];

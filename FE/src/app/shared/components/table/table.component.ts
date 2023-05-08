@@ -26,6 +26,14 @@ export class TableComponent {
   
   columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'expand'];
   expandedElement: any;
+
+  exam: any;
+  RGR: any;
+  lectures1: any;
+  lectures2: any;
+  practical1: any;
+  practical2: any;
+  credits: any;
 }
 
 interface Transaction {
