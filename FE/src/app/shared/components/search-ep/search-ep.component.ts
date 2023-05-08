@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { EP } from '../../models/education-plan';
+import { SearchEP } from '../../models/education-plan';
 import { Observable, map, startWith } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 
@@ -20,7 +20,7 @@ export class SearchEpComponent implements OnInit {
     ep: '',
   });
 
-  educationPrograms: EP[] = [
+  educationPrograms: SearchEP[] = [
     {
       department: '503 кафедра',
       names: [
@@ -59,7 +59,7 @@ export class SearchEpComponent implements OnInit {
     },
   ];
 
-  stateGroupOptions$!: Observable<EP[]>;
+  stateGroupOptions$!: Observable<SearchEP[]>;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -70,7 +70,7 @@ export class SearchEpComponent implements OnInit {
     );
   }
 
-  private _filterGroup(value: string): EP[] {
+  private _filterGroup(value: string): SearchEP[] {
     if (value) {
       return this.educationPrograms
         .map(group => ({ department: group.department, names: _filter(group.names, value)}))
