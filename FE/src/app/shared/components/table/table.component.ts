@@ -1,6 +1,6 @@
 
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { EducationPlanForTerm } from '../../models/education-plan';
 import { educationPlan, tableColumns } from './table-data';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     ]),
   ],
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 
   displayedColumns = tableColumns;
   dataSource = [...educationPlan];
@@ -43,13 +43,17 @@ export class TableComponent {
     }),
   });
 
-  get lecturesFormGroup() {
+  get lecturesFormGroup(): FormGroup {
     return this.form.get('lectures') as FormGroup;
   }
 
-  get practicalFormGroup() {
+  get practicalFormGroup(): FormGroup {
     return this.form.get('practical') as FormGroup;
   }
 
   constructor(private fb: FormBuilder) {}
+ 
+  ngOnInit() {
+    
+  }
 }

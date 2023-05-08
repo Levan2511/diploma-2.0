@@ -12,22 +12,18 @@ export interface EducationPlanForTerm {
   exam: string;
   test: string;
   test2: string;
-  lectures1: string;
-  lectures2: string;
+  lectures1: number;
+  lectures2: number;
   labs: number;
   labs1: string;
   labs2: string;
   practical: number;
-  practical1: string;
-  practical2: string;
+  practical1: number;
+  practical2: number;
   classHours: number;
   selfWork: number;
   totalHours: number;
   credits: number;
   delete: string;
-  RGR: string;
-  RR: string;
-  RK: string;
-  KR: string;
-  KP: string;
+  RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
