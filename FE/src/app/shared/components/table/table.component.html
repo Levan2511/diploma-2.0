@@ -1,17 +1,3 @@
-<!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-
-    <ng-container *ngFor="let col of displayedColumnKeys; let i = index" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef>{{displayedColumnNames[i]}}</th>
-      <td mat-cell *matCellDef="let element">{{dataSource[0][col]}}</td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnKeys;"></tr>
-  </table> -->
-
-<!-- displayedColumns => matColumnDef -->
-<!-- dataSource => element -->
-
 <table mat-table
        [dataSource]="dataSource" multiTemplateDataRows
        class="mat-elevation-z8">
@@ -33,7 +19,7 @@
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="expanded-wrapper">
+        <form [formGroup]="form" class="expanded-wrapper">
           <mat-card>
             <ng-container *ngTemplateOutlet="examTemplate; context: { $implicit: element }"></ng-container>
           </mat-card>
@@ -49,7 +35,7 @@
           <mat-card class="d-flex flex-column">
             <ng-container *ngTemplateOutlet="creditsTemplate; context: { $implicit: element }"></ng-container>
           </mat-card>
-        </div>
+        </form>
       </div>
     </td>
   </ng-container>
@@ -65,10 +51,11 @@
 
 
 <ng-template #examTemplate let-row>
+  <form [formGroup]="form">
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
-      [(ngModel)]="exam">
+      formControlName="exam">
       <mat-radio-button class="radio-button" [value]="row.exam">
         Іспити
       </mat-radio-button>
@@ -79,58 +66,68 @@
         Диф. Заліки
       </mat-radio-button>
     </mat-radio-group>
+  </form>
 </ng-template>
 
 <ng-template #RGRTemplate let-row>
-  <mat-radio-group
-    aria-labelledby="example-radio-group-label"
-    class="radio-group"
-    [(ngModel)]="RGR">
-    <mat-radio-button class="radio-button" [value]="row.RGR">
-      РГР
-    </mat-radio-button>
-    <mat-radio-button class="radio-button" [value]="row.RR">
-      РР
-    </mat-radio-button>
-    <mat-radio-button class="radio-button" [value]="row.KP">
-      КП
-    </mat-radio-button>
-    <mat-radio-button class="radio-button" [value]="row.KR">
-      КР
-    </mat-radio-button>
-    <mat-radio-button class="radio-button" [value]="row.RK">
-      РК
-    </mat-radio-button>
-  </mat-radio-group>
+  <form [formGroup]="form">
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="radio-group"
+      formControlName="RGR">
+      <mat-radio-button class="radio-button" [value]="row.RGR">
+        РГР
+      </mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="row.RR">
+        РР
+      </mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="row.KP">
+        КП
+      </mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="row.KR">
+        КР
+      </mat-radio-button>
+      <mat-radio-button class="radio-button" [value]="row.RK">
+        РК
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
 </ng-template>
 
 <ng-template #lecturesTemplate let-row>
-  <mat-form-field class="example-full-width">
-    <mat-label>Лекції 1 1/2</mat-label>
-    <input [(ngModel)]="lectures1" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Лекції 2 1/2</mat-label>
-    <input [(ngModel)]="lectures2" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
+  <form [formGroup]="lecturesFormGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Лекції 1 1/2</mat-label>
+      <input formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Лекції 2 1/2</mat-label>
+      <input formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  </form>
 </ng-template>
 
 <ng-template #practicalTemplate let-row>
-  <mat-form-field class="example-full-width">
-    <mat-label>Пр. 1 (2/2)</mat-label>
-    <input [(ngModel)]="practical1" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Пр. 2 (1/2)</mat-label>
-    <input [(ngModel)]="practical2" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
+  <form [formGroup]="practicalFormGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Пр. 1 (2/2)</mat-label>
+      <input formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Пр. 2 (1/2)</mat-label>
+      <input formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  </form>
+  
 </ng-template>
 
 <ng-template #creditsTemplate let-row>
-  <mat-form-field class="example-full-width">
-    <mat-label>Кредити</mat-label>
-    <input [(ngModel)]="credits" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
+  <form [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Кредити</mat-label>
+      <input formControlName="credits" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  </form>
 </ng-template>
