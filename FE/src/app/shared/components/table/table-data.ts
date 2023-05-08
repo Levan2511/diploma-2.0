@@ -20,62 +20,62 @@ export const tableColumns: {
     name: 'Кафедра',
     key: 'department',
   },
-  {
-    name: 'Іспити',
-    key: 'exam',
-  },
-  {
-    name: 'Заліки',
-    key: 'test',
-  },
-  {
-    name: 'Диф. Заліки',
-    key: 'test2',
-  },
-  {
-    name: 'РГР',
-    key: 'RGR',
-  },
-  {
-    name: 'РР',
-    key: 'RR',
-  },
-  {
-    name: 'РК',
-    key: 'RK',
-  },
-  {
-    name: 'КР',
-    key: 'KR',
-  },
-  {
-    name: 'КП',
-    key: 'KP',
-  },
+  // {
+  //   name: 'Іспити',
+  //   key: 'exam',
+  // },
+  // {
+  //   name: 'Заліки',
+  //   key: 'test',
+  // },
+  // {
+  //   name: 'Диф. Заліки',
+  //   key: 'test2',
+  // },
+  // {
+  //   name: 'РГР',
+  //   key: 'RGR',
+  // },
+  // {
+  //   name: 'РР',
+  //   key: 'RR',
+  // },
+  // {
+  //   name: 'РК',
+  //   key: 'RK',
+  // },
+  // {
+  //   name: 'КР',
+  //   key: 'KR',
+  // },
+  // {
+  //   name: 'КП',
+  //   key: 'KP',
+  // },
   {
     name: 'Лекції',
     key: 'lectures',
   },
-  {
-    name: 'Лекції 1 1/2',
-    key: 'lectures1',
-  },
-  {
-    name: 'Лекції 2 1/2',
-    key: 'lectures2',
-  },
+  // {
+  //   name: 'Лекції 1 1/2',
+  //   key: 'lectures1',
+  // },
+  // {
+  //   name: 'Лекції 2 1/2',
+  //   key: 'lectures2',
+  // },
   {
     name: 'Практичні',
     key: 'practical',
   },
-  {
-    name: 'Пр. 1 (2/2)',
-    key: 'practical1',
-  },
-  {
-    name: 'Пр. 2 (1/2)',
-    key: 'practical2',
-  },
+  // {
+  //   name: 'Пр. 1 (2/2)',
+  //   key: 'practical1',
+  // },
+  // {
+  //   name: 'Пр. 2 (1/2)',
+  //   key: 'practical2',
+  // },
   {
     name: 'Аудиторні години',
     key: 'classHours',
@@ -88,14 +88,14 @@ export const tableColumns: {
     name: 'Всього годин',
     key: 'totalHours',
   },
-  {
-    name: 'Кредити',
-    key: 'credits',
-  },
-  {
-    name: 'Видалити',
-    key: 'delete',
-  },
+  // {
+  //   name: 'Кредити',
+  //   key: 'credits',
+  // },
+  // {
+  //   name: 'Видалити',
+  //   key: 'delete',
+  // },
 ];
 
 export const educationPlan: EducationPlanForTerm[] = [

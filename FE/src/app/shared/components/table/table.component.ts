@@ -3,30 +3,29 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EducationPlanForTerm } from '../../models/education-plan';
 import { educationPlan, tableColumns } from './table-data';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'lk-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class TableComponent {
-  // displayedColumns: {
-  //   name: string;
-  //   key: keyof EducationPlanForTerm
-  // }[] = tableColumns;
 
-  // educationalPlan: Partial<EducationPlanForTerm>[] = [];
-
-  displayedColumnKeys: (keyof EducationPlanForTerm)[] = tableColumns.map(col => col.key);
-  displayedColumnNames: string[] = tableColumns.map(col => col.name);
+  displayedColumns = tableColumns;
   dataSource = [...educationPlan];
 
-  // /** Gets the total cost of all transactions. */
-  // getTotalCost() {
-  //   return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
-  // }
-
+  
+  columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'expand'];
+  expandedElement: any;
 }
 
 interface Transaction {
