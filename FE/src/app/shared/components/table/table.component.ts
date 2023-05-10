@@ -20,6 +20,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   ],
 })
 export class TableComponent implements OnInit {
+  isEditMode = false;
 
   displayedColumns = tableColumns;
   dataSource = [...educationPlan];
@@ -34,7 +35,6 @@ export class TableComponent implements OnInit {
  
   ngOnInit() {
     this.formArr = this.getForm();
-    console.log(this.getFormGroup(0));
   }
 
   getFormGroup(index: any): FormGroup {
@@ -51,11 +51,22 @@ export class TableComponent implements OnInit {
       )
     );
 
-    return this.fb.array(formArray);
+    const formArrayResult = this.fb.array(formArray);
+    formArrayResult.disable()
+
+    return formArrayResult;
   }
 
   onEdit(el: EducationPlanForTerm) {
     console.log(el);
+
+    if (this.formArr.enabled) {
+      this.formArr.disable();
+    } else {
+      this.formArr.enable();
+    }
+
+    this.isEditMode = !this.isEditMode;
   }
 
   onDelete(el: EducationPlanForTerm) {

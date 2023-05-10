@@ -79,4 +79,14 @@ tr.example-element-row:not(.example-expanded-row):active {
       width: unset;
     }
   }
+
+  td {
+    mat-form-field {
+      width: 75%;
+    }
+  }
+
+  th {
+    padding: 0 5px;
+  }
 }
