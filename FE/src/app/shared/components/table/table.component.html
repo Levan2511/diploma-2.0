@@ -5,11 +5,15 @@
     <th mat-header-cell *matHeaderCellDef> {{column.name}} </th>
     <td mat-cell *matCellDef="let element; let i = dataIndex">
       <span *ngIf="!isEditMode">{{element[column.key]}}</span>
-      <form *ngIf="isEditMode" [formGroup]="getFormGroup(i)">
-        <mat-form-field>
-          <input matInput [formControlName]="column.key">
-        </mat-form-field>
-      </form>
+      <ng-container *ngIf="isEditMode">
+        <form *ngIf="editRowIndex === i" [formGroup]="getFormGroup(i)">
+          <mat-form-field>
+            <input matInput [formControlName]="column.key">
+          </mat-form-field>
+        </form>
+
+        <span *ngIf="editRowIndex !== i">{{element[column.key]}}</span>
+      </ng-container>
     </td>
   </ng-container>
 
@@ -17,7 +21,7 @@
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
     <td mat-cell *matCellDef="let element; let i = dataIndex">
-      <button mat-icon-button aria-label="expand row" (click)="onEdit(element); $event.stopPropagation()">
+      <button mat-icon-button aria-label="expand row" (click)="onEdit(element, i); $event.stopPropagation()">
         <mat-icon>edit</mat-icon>
       </button>
     </td>

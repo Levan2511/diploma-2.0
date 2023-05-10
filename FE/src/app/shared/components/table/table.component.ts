@@ -21,6 +21,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TableComponent implements OnInit {
   isEditMode = false;
+  editRowIndex!: number | undefined;
 
   displayedColumns = tableColumns;
   dataSource = [...educationPlan];
@@ -57,19 +58,40 @@ export class TableComponent implements OnInit {
     return formArrayResult;
   }
 
-  onEdit(el: EducationPlanForTerm) {
-    console.log(el);
+  onEdit(el: EducationPlanForTerm, rowIndex: number): void {
+    if (!this.isEditMode) {
+      this.isEditMode = true;
+      this.editRowIndex = rowIndex;
+      this.formArr.controls[rowIndex].enable();
 
-    if (this.formArr.enabled) {
-      this.formArr.disable();
-    } else {
-      this.formArr.enable();
+      return;
     }
 
-    this.isEditMode = !this.isEditMode;
+    if (this.isEditMode) {
+
+      if (this.editRowIndex === rowIndex) {
+        this.editRowIndex = undefined;
+        this.isEditMode = false;
+        this.formArr.controls[rowIndex].disable();
+
+        return;
+      }
+
+      if (this.editRowIndex !== undefined) {
+        this.editRowIndex = rowIndex;
+        this.formArr.controls[rowIndex].enable();
+        this.disableOtherRows(rowIndex);
+      }
+    }
   }
 
   onDelete(el: EducationPlanForTerm) {
     console.log('Delete', el);
+  }
+
+  private disableOtherRows(rowIndex: number) {
+    this.formArr.controls.filter((_, i) => i !== rowIndex).forEach(control => {
+      control.disable();
+    })
   }
 }
