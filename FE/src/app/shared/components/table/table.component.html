@@ -9,7 +9,7 @@
   <!-- Edit column -->
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element; let i = dataIndex">
       <button mat-icon-button aria-label="expand row" (click)="onEdit(element); $event.stopPropagation()">
         <mat-icon>edit</mat-icon>
       </button>
@@ -19,7 +19,7 @@
   <!-- Delete column -->
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element; let i = dataIndex">
       <button mat-icon-button aria-label="expand row" (click)="onDelete(element); $event.stopPropagation()">
         <mat-icon>delete</mat-icon>
       </button>
@@ -39,23 +39,23 @@
 
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+    <td mat-cell *matCellDef="let element; let i = dataIndex" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <form [formGroup]="form" class="expanded-wrapper">
+        <form [formGroup]="getFormGroup(i)" class="expanded-wrapper">
           <mat-card>
-            <ng-container *ngTemplateOutlet="examTemplate; context: { $implicit: element }"></ng-container>
+            <ng-container *ngTemplateOutlet="examTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card>
-            <ng-container *ngTemplateOutlet="RGRTemplate; context: { $implicit: element }"></ng-container>
+            <ng-container *ngTemplateOutlet="RGRTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card class="d-flex flex-column">
-            <ng-container *ngTemplateOutlet="lecturesTemplate; context: { $implicit: element }"></ng-container>
+            <ng-container *ngTemplateOutlet="lecturesTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card class="d-flex flex-column">
-            <ng-container *ngTemplateOutlet="practicalTemplate; context: { $implicit: element }"></ng-container>
+            <ng-container *ngTemplateOutlet="practicalTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card class="d-flex flex-column">
-            <ng-container *ngTemplateOutlet="creditsTemplate; context: { $implicit: element }"></ng-container>
+            <ng-container *ngTemplateOutlet="creditsTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
         </form>
       </div>
@@ -72,8 +72,8 @@
 </table>
 
 
-<ng-template #examTemplate let-row>
-  <form [formGroup]="form">
+<ng-template #examTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
@@ -91,8 +91,8 @@
   </form>
 </ng-template>
 
-<ng-template #RGRTemplate let-row>
-  <form [formGroup]="form">
+<ng-template #RGRTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
@@ -116,8 +116,8 @@
   </form>
 </ng-template>
 
-<ng-template #lecturesTemplate let-row>
-  <form [formGroup]="lecturesFormGroup">
+<ng-template #lecturesTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 1 1/2</mat-label>
       <input formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
@@ -130,8 +130,8 @@
   </form>
 </ng-template>
 
-<ng-template #practicalTemplate let-row>
-  <form [formGroup]="practicalFormGroup">
+<ng-template #practicalTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
     <mat-form-field class="example-full-width">
       <mat-label>Пр. 1 (2/2)</mat-label>
       <input formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
@@ -145,8 +145,8 @@
   
 </ng-template>
 
-<ng-template #creditsTemplate let-row>
-  <form [formGroup]="form">
+<ng-template #creditsTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
     <mat-form-field class="example-full-width">
       <mat-label>Кредити</mat-label>
       <input formControlName="credits" type="number" [min]="0" matInput placeholder="1">

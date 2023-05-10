@@ -28,43 +28,27 @@ export class TableComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
   expandedElement!: EducationPlanForTerm;
 
-
-  form: FormGroup = this.fb.group({
-    exam: this.fb.control(null),
-    RGR: this.fb.control(null),
-    credits: this.fb.control(null),
-    lectures: this.fb.group({
-      lectures1: this.fb.control(null),
-      lectures2: this.fb.control(null),
-    }),
-    practical: this.fb.group({
-      practical1: this.fb.control(null),
-      practical2: this.fb.control(null),
-    }),
-  });
-
-  get lecturesFormGroup(): FormGroup {
-    return this.form.get('lectures') as FormGroup;
-  }
-
-  get practicalFormGroup(): FormGroup {
-    return this.form.get('practical') as FormGroup;
-  }
-
-  formArr: any;
+  formArr!: FormArray;
 
   constructor(private fb: FormBuilder) {}
  
   ngOnInit() {
     this.formArr = this.getForm();
+    console.log(this.getFormGroup(0));
   }
 
-  getForm(): FormArray {
-    // from [{ key: value }] to [{ key: FormControl(value) }]
+  getFormGroup(index: any): FormGroup {
+    return this.formArr.at(index) as FormGroup;
+  }
+
+  private getForm(): FormArray {
+    // from [{ key: value }] to [FormGroup({ key: FormControl(value) })]
     const formArray = this.dataSource.map(
-      row => Object.entries(row).reduce((prev, curr) => {
-        return {...prev, [curr[0]]: this.fb.control(curr[1]) }  
-      }, {})
+      row => this.fb.group(
+        Object.entries(row).reduce((prev, curr) => {
+          return {...prev, [curr[0]]: this.fb.control(curr[1]) }  
+        }, {})
+      )
     );
 
     return this.fb.array(formArray);
