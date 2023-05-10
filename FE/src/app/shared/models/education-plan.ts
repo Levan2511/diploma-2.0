@@ -9,9 +9,7 @@ export interface EducationPlanForTerm {
   name: string;
   department: string;
   lectures: number;
-  exam: string;
-  test: string;
-  test2: string;
+  exam: 'exam' | 'test' | 'test2';
   lectures1: number;
   lectures2: number;
   labs: number;
