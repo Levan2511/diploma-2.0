@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { EducationPlanForTerm } from '../../models/education-plan';
 import { educationPlan, tableColumns } from './table-data';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'lk-table',
@@ -25,8 +25,8 @@ export class TableComponent implements OnInit {
   dataSource = [...educationPlan];
 
   
-  columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'expand'];
-  expandedElement: any;
+  columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
+  expandedElement!: EducationPlanForTerm;
 
 
   form: FormGroup = this.fb.group({
@@ -51,9 +51,30 @@ export class TableComponent implements OnInit {
     return this.form.get('practical') as FormGroup;
   }
 
+  formArr: any;
+
   constructor(private fb: FormBuilder) {}
  
   ngOnInit() {
-    
+    this.formArr = this.getForm();
+  }
+
+  getForm(): FormArray {
+    // from [{ key: value }] to [{ key: FormControl(value) }]
+    const formArray = this.dataSource.map(
+      row => Object.entries(row).reduce((prev, curr) => {
+        return {...prev, [curr[0]]: this.fb.control(curr[1]) }  
+      }, {})
+    );
+
+    return this.fb.array(formArray);
+  }
+
+  onEdit(el: EducationPlanForTerm) {
+    console.log(el);
+  }
+
+  onDelete(el: EducationPlanForTerm) {
+    console.log('Delete', el);
   }
 }
