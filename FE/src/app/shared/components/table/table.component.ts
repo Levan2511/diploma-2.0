@@ -28,7 +28,7 @@ export class TableComponent implements OnInit {
 
   
   columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
-  expandedElement!: EducationPlanForTerm;
+  expandedElement!: EducationPlanForTerm | null;
 
   formArr!: FormArray;
 
@@ -63,6 +63,7 @@ export class TableComponent implements OnInit {
       this.isEditMode = true;
       this.editRowIndex = rowIndex;
       this.formArr.controls[rowIndex].enable();
+      this.expandedElement = el;
 
       return;
     }
@@ -73,6 +74,7 @@ export class TableComponent implements OnInit {
         this.editRowIndex = undefined;
         this.isEditMode = false;
         this.formArr.controls[rowIndex].disable();
+        this.expandedElement = null;
 
         return;
       }
@@ -80,6 +82,7 @@ export class TableComponent implements OnInit {
       if (this.editRowIndex !== undefined) {
         this.editRowIndex = rowIndex;
         this.formArr.controls[rowIndex].enable();
+        this.expandedElement = el;
         this.disableOtherRows(rowIndex);
       }
     }
@@ -87,6 +90,14 @@ export class TableComponent implements OnInit {
 
   onDelete(el: EducationPlanForTerm) {
     console.log('Delete', el);
+  }
+
+  onRowClick(el: EducationPlanForTerm) {
+    if (this.isEditMode) {
+      return;
+    }
+
+    this.expandedElement = this.expandedElement === el ? null : el
   }
 
   private disableOtherRows(rowIndex: number) {
