@@ -1,7 +1,7 @@
 
 
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { EducationPlanForTerm } from '../../models/education-plan';
+import { EducationPlanForTerm } from '../../../view-ep/models/education-plan';
 import { educationPlan, tableColumns } from './table-data';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';

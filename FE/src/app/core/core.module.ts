@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { SearchWrapperComponent } from './components/search-wrapper/search-wrapper.component';
 import { AddEpWrapperComponent } from './components/add-ep-wrapper/add-ep-wrapper.component';
 import { SharedModule } from '../shared/shared.module';
+import { ViewEpModule } from '../view-ep/view-ep.module';
 
 
 
@@ -19,7 +20,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    ViewEpModule
   ]
 })
 export class CoreModule { }

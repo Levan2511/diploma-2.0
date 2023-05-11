@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
+import { ViewEpModule } from './view-ep/view-ep.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
     SharedModule,
     CoreModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ViewEpModule
   ],
   providers: [
     {

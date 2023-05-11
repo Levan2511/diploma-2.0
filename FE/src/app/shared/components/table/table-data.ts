@@ -1,4 +1,4 @@
-import { EducationPlanForTerm } from "../../models/education-plan";
+import { EducationPlanForTerm } from "../../../view-ep/models/education-plan";
 
 export const tableColumns: {
   name: string;
