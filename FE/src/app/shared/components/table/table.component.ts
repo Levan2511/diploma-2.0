@@ -1,6 +1,6 @@
 
 
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DisplayColumn, EducationPlanForTerm } from '../../../view-ep/models/education-plan';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -30,7 +30,10 @@ export class TableComponent implements OnInit {
 
   formArr!: FormArray;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {}
  
   ngOnInit() {
     this.formArr = this.getForm();
@@ -59,32 +62,39 @@ export class TableComponent implements OnInit {
 
   onEdit(el: EducationPlanForTerm, rowIndex: number): void {
     if (!this.isEditMode) {
-      this.isEditMode = true;
-      this.editRowIndex = rowIndex;
-      this.formArr.controls[rowIndex].enable();
-      this.expandedElement = el;
+      this.switchEditMode(true, el, rowIndex);
 
       return;
     }
 
-    if (this.isEditMode) {
-
-      if (this.editRowIndex === rowIndex) {
-        this.editRowIndex = undefined;
-        this.isEditMode = false;
-        this.formArr.controls[rowIndex].disable();
-        this.expandedElement = null;
-
-        return;
-      }
-
-      if (this.editRowIndex !== undefined) {
-        this.editRowIndex = rowIndex;
-        this.formArr.controls[rowIndex].enable();
-        this.expandedElement = el;
-        this.disableOtherRows(rowIndex);
-      }
+    if (this.editRowIndex !== undefined) {
+      this.switchEditMode(true, el, rowIndex);
+      this.disableOtherRows(rowIndex);
     }
+  }
+
+  private switchEditMode(value: boolean, el: EducationPlanForTerm, rowIndex: number) {
+    this.isEditMode = value;
+
+    if (value) {
+      this.editRowIndex = rowIndex;
+      // TODO: after this line formArr value become with 1 value array
+      this.formArr.controls[rowIndex].enable();
+      this.expandedElement = el;
+    } else {
+      this.editRowIndex = undefined;
+      this.formArr.controls[rowIndex]?.disable();
+      this.expandedElement = null;
+    }
+  }
+
+  onSaveRow(rowIndex: number) {
+    console.log('Save changes');
+    // this.dataSource[rowIndex] = this.formArr.controls[rowIndex].value;
+    // this.isEditMode = false;
+    // this.editRowIndex = undefined;
+    // this.expandedElement = null;
+    // this.cdr.detectChanges();
   }
 
   onDelete(el: EducationPlanForTerm) {
