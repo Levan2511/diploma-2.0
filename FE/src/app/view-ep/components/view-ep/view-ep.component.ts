@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { educationPlan, educationPlanForTerm, tableColumns } from 'src/app/shared/components/table/table-data';
 
 @Component({
   selector: 'lk-view-ep',
@@ -7,6 +8,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewEpComponent implements OnInit {
+  displayedColumns = tableColumns;
+  dataSource = educationPlanForTerm;
+
+  educationPlan = educationPlan;
 
   constructor() { }
 

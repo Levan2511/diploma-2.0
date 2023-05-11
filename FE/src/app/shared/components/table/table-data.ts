@@ -1,9 +1,6 @@
-import { EducationPlanForTerm } from "../../../view-ep/models/education-plan";
+import { DisplayColumn, EducationPlanForTerm } from "../../../view-ep/models/education-plan";
 
-export const tableColumns: {
-  name: string;
-  key: keyof EducationPlanForTerm
-}[] = [
+export const tableColumns: DisplayColumn[] = [
   {
     name: 'Цикл',
     key: 'cycle'
@@ -20,62 +17,14 @@ export const tableColumns: {
     name: 'Кафедра',
     key: 'department',
   },
-  // {
-  //   name: 'Іспити',
-  //   key: 'exam',
-  // },
-  // {
-  //   name: 'Заліки',
-  //   key: 'test',
-  // },
-  // {
-  //   name: 'Диф. Заліки',
-  //   key: 'test2',
-  // },
-  // {
-  //   name: 'РГР',
-  //   key: 'RGR',
-  // },
-  // {
-  //   name: 'РР',
-  //   key: 'RR',
-  // },
-  // {
-  //   name: 'РК',
-  //   key: 'RK',
-  // },
-  // {
-  //   name: 'КР',
-  //   key: 'KR',
-  // },
-  // {
-  //   name: 'КП',
-  //   key: 'KP',
-  // },
   {
     name: 'Лекції',
     key: 'lectures',
   },
-  // {
-  //   name: 'Лекції 1 1/2',
-  //   key: 'lectures1',
-  // },
-  // {
-  //   name: 'Лекції 2 1/2',
-  //   key: 'lectures2',
-  // },
   {
     name: 'Практичні',
     key: 'practical',
   },
-  // {
-  //   name: 'Пр. 1 (2/2)',
-  //   key: 'practical1',
-  // },
-  // {
-  //   name: 'Пр. 2 (1/2)',
-  //   key: 'practical2',
-  // },
   {
     name: 'Аудиторні години',
     key: 'classHours',
@@ -88,17 +37,9 @@ export const tableColumns: {
     name: 'Всього годин',
     key: 'totalHours',
   },
-  // {
-  //   name: 'Кредити',
-  //   key: 'credits',
-  // },
-  // {
-  //   name: 'Видалити',
-  //   key: 'delete',
-  // },
 ];
 
-export const educationPlan: EducationPlanForTerm[] = [
+export const educationPlanForTerm: EducationPlanForTerm[] = [
   {
     cycle: 1,
     term: 2,
@@ -142,5 +83,99 @@ export const educationPlan: EducationPlanForTerm[] = [
     RGR: 'KP',
     credits: 10,
     delete: 'Delete',
+  },
+  {
+    cycle: 2,
+    term: 1,
+    name: 'Інженерія ПЗ',
+    department: '503',
+    totalHours: 100,
+    selfWork: 20,
+    classHours: 25,
+    practical: 5,
+    labs: 30,
+    lectures: 40,
+    exam: 'exam',
+    practical1: 4,
+    practical2: 1,
+    labs1: 'labs1',
+    labs2: 'labs2',
+    lectures1: 1,
+    lectures2: 3,
+    RGR: 'KP',
+    credits: 10,
+    delete: 'Delete',
+  },
+  {
+    cycle: 2,
+    term: 1,
+    name: 'Надійність та відмовостійкість комп’ютерних систем',
+    department: '503',
+    totalHours: 100,
+    selfWork: 20,
+    classHours: 25,
+    practical: 5,
+    labs: 30,
+    lectures: 40,
+    exam: 'exam',
+    practical1: 4,
+    practical2: 1,
+    labs1: 'labs1',
+    labs2: 'labs2',
+    lectures1: 1,
+    lectures2: 3,
+    RGR: 'KP',
+    credits: 10,
+    delete: 'Delete',
+  },
+  {
+    cycle: 2,
+    term: 1,
+    name: 'Проектування вбудованих аерокосмічних систем',
+    department: '503',
+    totalHours: 100,
+    selfWork: 20,
+    classHours: 25,
+    practical: 5,
+    labs: 30,
+    lectures: 40,
+    exam: 'exam',
+    practical1: 4,
+    practical2: 1,
+    labs1: 'labs1',
+    labs2: 'labs2',
+    lectures1: 1,
+    lectures2: 3,
+    RGR: 'KP',
+    credits: 10,
+    delete: 'Delete',
+  },
+  {
+    cycle: 2,
+    term: 1,
+    name: 'Паралел. та розподіл. обчисл.',
+    department: '503',
+    totalHours: 100,
+    selfWork: 20,
+    classHours: 25,
+    practical: 5,
+    labs: 30,
+    lectures: 40,
+    exam: 'exam',
+    practical1: 4,
+    practical2: 1,
+    labs1: 'labs1',
+    labs2: 'labs2',
+    lectures1: 1,
+    lectures2: 3,
+    RGR: 'KP',
+    credits: 10,
+    delete: 'Delete',
   }
 ];
+
+export const educationPlan: EducationPlanForTerm[][] = [
+  educationPlanForTerm,
+  educationPlanForTerm,
+  educationPlanForTerm
+]

@@ -1,1 +1,14 @@
-<lk-table></lk-table>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let term of educationPlan; let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="justify-content-center">
+        {{i + 1}} Семестр
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <lk-table
+      [dataSource]="term"
+      [displayedColumns]="displayedColumns"
+    ></lk-table>
+  </mat-expansion-panel>
+</mat-accordion>

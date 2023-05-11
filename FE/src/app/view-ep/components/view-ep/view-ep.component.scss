@@ -1,0 +1,8 @@
+:host {
+  ::ng-deep {
+    .mat-expansion-panel {
+      overflow-x: visible;
+      border-radius: 0;
+    }
+  }
+}

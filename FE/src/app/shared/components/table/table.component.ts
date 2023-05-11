@@ -1,8 +1,7 @@
 
 
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { EducationPlanForTerm } from '../../../view-ep/models/education-plan';
-import { educationPlan, tableColumns } from './table-data';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { DisplayColumn, EducationPlanForTerm } from '../../../view-ep/models/education-plan';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -20,15 +19,14 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   ],
 })
 export class TableComponent implements OnInit {
+  @Input() displayedColumns!: DisplayColumn[];
+  @Input() dataSource!: EducationPlanForTerm[];
+  
+  columnsToDisplayWithExpand!: string[];
+  expandedElement!: EducationPlanForTerm | null;
+
   isEditMode = false;
   editRowIndex!: number | undefined;
-
-  displayedColumns = tableColumns;
-  dataSource = [...educationPlan];
-
-  
-  columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
-  expandedElement!: EducationPlanForTerm | null;
 
   formArr!: FormArray;
 
@@ -36,6 +34,7 @@ export class TableComponent implements OnInit {
  
   ngOnInit() {
     this.formArr = this.getForm();
+    this.columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
   }
 
   getFormGroup(index: any): FormGroup {

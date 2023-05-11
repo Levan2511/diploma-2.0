@@ -25,3 +25,8 @@ export interface EducationPlanForTerm {
   delete: string;
   RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
+
+export interface DisplayColumn {
+  name: string;
+  key: keyof EducationPlanForTerm
+}
