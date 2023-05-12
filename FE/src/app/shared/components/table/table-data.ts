@@ -177,5 +177,8 @@ export const educationPlanForTerm: EducationPlanForTerm[] = [
 export const educationPlan: EducationPlanForTerm[][] = [
   educationPlanForTerm,
   educationPlanForTerm,
-  educationPlanForTerm
+  educationPlanForTerm,
+  educationPlanForTerm,
+  educationPlanForTerm,
+  educationPlanForTerm,
 ]

@@ -5,6 +5,7 @@ import { ViewEpComponent } from './components/view-ep/view-ep.component';
 import { SearchEpComponent } from './components/search-ep/search-ep.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NoopAnimationsModule
   ],
   exports: [
     ViewEpComponent,

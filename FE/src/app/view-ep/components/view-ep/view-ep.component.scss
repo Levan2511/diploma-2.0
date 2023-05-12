@@ -9,4 +9,9 @@
   .panel-title {
     font-weight: 500;
   }
+
+  mat-accordion,
+  mat-expansion-panel {
+    transition: none;
+  }
 }

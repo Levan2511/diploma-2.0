@@ -37,7 +37,7 @@ export class TableComponent implements OnInit {
   ) {}
  
   ngOnInit() {
-    this.formArr = this.getForm();
+    this.formArr = this.initForm();
     this.columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
   }
 
@@ -45,7 +45,7 @@ export class TableComponent implements OnInit {
     return this.formArr.at(index) as FormGroup;
   }
 
-  private getForm(): FormArray {
+  private initForm(): FormArray {
     // from [{ key: value }] to [FormGroup({ key: FormControl(value) })]
     const formArray = this.dataSource.map(
       row => this.fb.group(
@@ -97,8 +97,15 @@ export class TableComponent implements OnInit {
     this.dataSource = this.formArr.value;
   }
 
-  onDelete(el: EducationPlanForTerm) {
-    console.log('Delete', el);
+  onCancel(rowIndex: number) {
+    this.switchEditMode(false, rowIndex);
+    this.formArr = this.initForm();
+  }
+
+  onDelete(rowIndex: number) {
+    const tmpArr = [...this.dataSource];
+    tmpArr.splice(rowIndex, 1)
+    this.dataSource = tmpArr;
   }
 
   onRowClick(el: EducationPlanForTerm) {
