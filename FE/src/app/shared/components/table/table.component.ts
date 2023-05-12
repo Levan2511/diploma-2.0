@@ -62,24 +62,28 @@ export class TableComponent implements OnInit {
 
   onEdit(el: EducationPlanForTerm, rowIndex: number): void {
     if (!this.isEditMode) {
-      this.switchEditMode(true, el, rowIndex);
+      this.switchEditMode(true, rowIndex, el);
 
       return;
     }
 
     if (this.editRowIndex !== undefined) {
-      this.switchEditMode(true, el, rowIndex);
+      this.switchEditMode(true, rowIndex, el);
       this.disableOtherRows(rowIndex);
     }
   }
 
-  private switchEditMode(value: boolean, el: EducationPlanForTerm, rowIndex: number) {
+  private switchEditMode(value: boolean, rowIndex: number, el: EducationPlanForTerm | null = null) {
     this.isEditMode = value;
 
     if (value) {
       this.editRowIndex = rowIndex;
       // TODO: after this line formArr value become with 1 value array
-      this.formArr.controls[rowIndex].enable();
+      console.log(this.formArr.value);
+      Object.values((this.formArr.controls[rowIndex] as FormGroup).controls).forEach(c => c.enable());
+      setTimeout(() => {
+        console.log(this.formArr.value);
+      }, 100);
       this.expandedElement = el;
     } else {
       this.editRowIndex = undefined;
@@ -89,12 +93,8 @@ export class TableComponent implements OnInit {
   }
 
   onSaveRow(rowIndex: number) {
-    console.log('Save changes');
-    // this.dataSource[rowIndex] = this.formArr.controls[rowIndex].value;
-    // this.isEditMode = false;
-    // this.editRowIndex = undefined;
-    // this.expandedElement = null;
-    // this.cdr.detectChanges();
+    this.switchEditMode(false, rowIndex);
+    this.dataSource = this.formArr.value;
   }
 
   onDelete(el: EducationPlanForTerm) {
@@ -107,6 +107,10 @@ export class TableComponent implements OnInit {
     }
 
     this.expandedElement = this.expandedElement === el ? null : el
+  }
+
+  identify(index: number, item: DisplayColumn) {
+    return item.key || index;
   }
 
   private disableOtherRows(rowIndex: number) {
