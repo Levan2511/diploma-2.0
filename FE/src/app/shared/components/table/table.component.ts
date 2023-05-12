@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { DisplayColumn, EducationPlanForTerm } from '../../../view-ep/models/education-plan';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: 'lk-table',
@@ -78,12 +79,7 @@ export class TableComponent implements OnInit {
 
     if (value) {
       this.editRowIndex = rowIndex;
-      // TODO: after this line formArr value become with 1 value array
-      console.log(this.formArr.value);
-      Object.values((this.formArr.controls[rowIndex] as FormGroup).controls).forEach(c => c.enable());
-      setTimeout(() => {
-        console.log(this.formArr.value);
-      }, 100);
+      this.formArr.controls[rowIndex]?.enable();
       this.expandedElement = el;
     } else {
       this.editRowIndex = undefined;
@@ -94,6 +90,10 @@ export class TableComponent implements OnInit {
 
   onSaveRow(rowIndex: number) {
     this.switchEditMode(false, rowIndex);
+
+    if (isEqual(this.dataSource, this.formArr.value)) {
+      return;
+    }
     this.dataSource = this.formArr.value;
   }
 
