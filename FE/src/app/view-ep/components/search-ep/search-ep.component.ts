@@ -40,7 +40,7 @@ export class SearchEpComponent implements OnInit, OnDestroy {
     this.viewEpService.getEducationPlanIds().subscribe(value => {
       this.educationPrograms = value;
       this.dataLoading = false;
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     });
     this.stateGroupOptions$ = this.epForm.get('ep')!.valueChanges.pipe(
       startWith(''),
