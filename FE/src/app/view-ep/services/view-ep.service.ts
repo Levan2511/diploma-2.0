@@ -13,4 +13,12 @@ export class ViewEpService {
   getEducationPlanIds(): Observable<SearchEP[]> {
     return this.http.get('/api/ep-ids', {}, false, false);
   }
+
+  getEducationPlanById(id: string) {
+    return this.http.get('/api/ep-ids/ep-by-id', {
+      params: {
+        epId: id
+      }
+    }, false, false)
+  }
 }

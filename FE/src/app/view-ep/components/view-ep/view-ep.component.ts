@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { educationPlan, educationPlanForTerm, tableColumns } from 'src/app/shared/components/table/table-data';
+import { ViewEpService } from '../../services/view-ep.service';
+import { ActivatedRoute } from '@angular/router';
+import { filter, finalize, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'lk-view-ep',
@@ -13,9 +16,18 @@ export class ViewEpComponent implements OnInit {
 
   educationPlan = educationPlan;
 
-  constructor() { }
+  constructor(
+    private viewEpService: ViewEpService,
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.pipe(
+      filter(({ epId }) => !!epId),
+      switchMap(({ epId }) => this.viewEpService.getEducationPlanById(epId)),
+    ).subscribe(() => this.cdr.markForCheck());
+
   }
 
 }

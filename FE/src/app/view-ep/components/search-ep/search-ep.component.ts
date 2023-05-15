@@ -3,7 +3,7 @@ import { SearchEP } from '../../models/education-plan';
 import { Observable, debounceTime, map, startWith, tap, Subject, takeUntil } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { ViewEpService } from '../../services/view-ep.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -20,7 +20,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class SearchEpComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   epForm = this.formBuilder.group({
-    ep: '',
+    ep: this.getDefaultValueFromQueryParams(),
   });
 
   dataLoading = true;
@@ -32,7 +32,8 @@ export class SearchEpComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private viewEpService: ViewEpService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -68,5 +69,9 @@ export class SearchEpComponent implements OnInit, OnDestroy {
     }
 
     return this.educationPrograms;
+  }
+
+  private getDefaultValueFromQueryParams(): string {
+    return this.activatedRoute.snapshot.queryParams['epId'];
   }
 }
