@@ -14,7 +14,10 @@ app.use(express.json())
 app.get('/', (req, res) => res.sendFile(path.resolve(pathToStatic, './index.html')));
 
 const authRouter = require('./api/login');
-app.use('/login', authRouter)
+app.use('/login', authRouter);
+
+const epRouter = require('./api/education-plan');
+app.use('/ep-ids', epRouter);
 
 const server = http.createServer(app);
 

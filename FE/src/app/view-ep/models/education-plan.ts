@@ -1,6 +1,6 @@
 export interface SearchEP {
   department: string;
-  names: string[];
+  ids: string[];
 }
 
 export interface EducationPlanForTerm {

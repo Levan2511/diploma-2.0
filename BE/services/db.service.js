@@ -2,23 +2,28 @@ const fs = require('fs').promises;
 const path = require('path')
 
 class DatabaseService {
-    DB = null;
-    pathToDB = path.resolve('./DB/db.json');
+  DB = null;
+  pathToDB = path.resolve('./DB/db.json');
 
-    constructor() {
-        this.getData().then((db) => this.DB = db);
-        console.log('PATH', this.pathToDB);
-    }
+  constructor() {
+    this.getData().then((db) => this.DB = db);
+  }
 
-    async getData() {
-        return JSON.parse(await fs.readFile(this.pathToDB))
-    }
+  async getData() {
+    return JSON.parse(await fs.readFile(this.pathToDB))
+  }
 
-    async getUsers() {
-        const res = JSON.parse(await fs.readFile(this.pathToDB));
+  async getUsers() {
+    const { users } = await this.getData();
 
-        return res.users;
-    }
+    return users;
+  }
+
+  async getEducationPlanIds() {
+    const { educationPlanIds } = await this.getData();
+
+    return educationPlanIds;
+  }
 }
 
 module.exports = DatabaseService;

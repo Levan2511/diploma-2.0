@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SearchEP } from '../../models/education-plan';
 import { Observable, map, startWith } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
+import { ViewEpService } from '../../services/view-ep.service';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -20,50 +21,23 @@ export class SearchEpComponent implements OnInit {
     ep: '',
   });
 
-  educationPrograms: SearchEP[] = [
-    {
-      department: '503 кафедра',
-      names: [
-        '[ 5 ф. ][ 503 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 503 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 125 Кібербезпека ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 503 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 124 Комп`ютерні Науки ][ Системне Обчислювання ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 503 каф. ][ Маг ][ 1.5р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-      ]
-    },
-    {
-      department: '601 кафедра',
-      names: [
-        '[ 6 ф. ][ 601 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 6 ф. ][ 601 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 126 Кібербезпека ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 601 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 124 Комп`ютерні Науки ][ Системне Обчислювання ][офн][ус][ум][1н][X]',
-        '[ 6 ф. ][ 601 каф. ][ Маг ][ 1.5р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-      ]
-    },
-    {
-      department: '402 кафедра',
-      names: [
-        '[ 5 ф. ][ 402 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 402 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 126 Кібербезпека ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 402 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 124 Комп`ютерні Науки ][ Системне Обчислювання ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 402 каф. ][ Маг ][ 1.5р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-      ]
-    },
-    {
-      department: '501 кафедра',
-      names: [
-        '[ 5 ф. ][ 501 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 501 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 126 Кібербезпека ][ Системне програмування ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 501 каф. ][ Бак ][ 4р ][ 12 інформаційні технології ][ 124 Комп`ютерні Науки ][ Системне Обчислювання ][офн][ус][ум][1н][X]',
-        '[ 5 ф. ][ 501 каф. ][ Маг ][ 1.5р ][ 12 інформаційні технології ][ 123 Комп`ютерна інженерія ][ Системне програмування ][офн][ус][ум][1н][X]',
-      ]
-    },
-  ];
+  dataLoading = true;
+  private educationPrograms!: SearchEP[];
 
   stateGroupOptions$!: Observable<SearchEP[]>;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private viewEpService: ViewEpService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
+    this.viewEpService.getEducationPlanIds().subscribe(value => {
+      this.educationPrograms = value;
+      this.dataLoading = false;
+      this.cdr.markForCheck();
+    });
     this.stateGroupOptions$ = this.epForm.get('ep')!.valueChanges.pipe(
       startWith(''),
       map(value => this._filterGroup(value || '')),
@@ -73,8 +47,8 @@ export class SearchEpComponent implements OnInit {
   private _filterGroup(value: string): SearchEP[] {
     if (value) {
       return this.educationPrograms
-        .map(group => ({ department: group.department, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
+        .map(group => ({ department: group.department, ids: _filter(group.ids, value)}))
+        .filter(group => group.ids.length > 0);
     }
 
     return this.educationPrograms;
