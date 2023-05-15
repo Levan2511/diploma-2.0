@@ -13,11 +13,15 @@ import { isEmpty } from 'lodash';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewEpComponent implements OnInit {
+  searchCompleted = false;
+
   displayedColumns = tableColumns;
   educationPlan$: Observable<EducationPlan | null> = this.activatedRoute.queryParams.pipe(
     filter(({ epId }) => !!epId),
     switchMap(({ epId }) => this.viewEpService.getEducationPlanById(epId)),
     map(value => {
+      this.searchCompleted = true;
+
       if (isEmpty(value)) {
         return null;
       }

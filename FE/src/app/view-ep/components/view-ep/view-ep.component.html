@@ -1,8 +1,12 @@
 <ng-template #noData>
-  <mat-card>
-    <mat-card-title>No Data Found</mat-card-title>
+  <mat-card *ngIf="searchCompleted">
+    <mat-card-title>Нічого не знайдено</mat-card-title>
   </mat-card>
 </ng-template>
+
+<mat-card *ngIf="!searchCompleted">
+  <mat-card-title>Оберіть навчальний план</mat-card-title>
+</mat-card>
 
 <ng-container *ngIf="educationPlan$ | async as ep; else noData">
   <mat-accordion displayMode="flat" [multi]="true">
