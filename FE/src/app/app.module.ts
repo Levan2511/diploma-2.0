@@ -10,7 +10,6 @@ import { MaterialModule } from './material/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
 import { ViewEpModule } from './view-ep/view-ep.module';
 
 @NgModule({
@@ -28,13 +27,6 @@ import { ViewEpModule } from './view-ep/view-ep.module';
     HttpClientModule,
     ToastrModule.forRoot(),
     ViewEpModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: SpinnerInterceptor,
-      multi: true,
-    },
   ],
   bootstrap: [AppComponent]
 })
