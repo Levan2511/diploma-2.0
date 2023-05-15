@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@
 import { educationPlan, educationPlanForTerm, tableColumns } from 'src/app/shared/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
-import { filter, finalize, switchMap, tap } from 'rxjs';
+import { Observable, filter, finalize, switchMap, tap, map } from 'rxjs';
+import { EducationPlan } from '../../models/education-plan';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'lk-view-ep',
@@ -12,9 +14,16 @@ import { filter, finalize, switchMap, tap } from 'rxjs';
 })
 export class ViewEpComponent implements OnInit {
   displayedColumns = tableColumns;
-  dataSource = educationPlanForTerm;
-
-  educationPlan = educationPlan;
+  educationPlan$: Observable<EducationPlan | null> = this.activatedRoute.queryParams.pipe(
+    filter(({ epId }) => !!epId),
+    switchMap(({ epId }) => this.viewEpService.getEducationPlanById(epId)),
+    map(value => {
+      if (isEmpty(value)) {
+        return null;
+      }
+      return value;
+    })
+  );
 
   constructor(
     private viewEpService: ViewEpService,
@@ -23,10 +32,6 @@ export class ViewEpComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.pipe(
-      filter(({ epId }) => !!epId),
-      switchMap(({ epId }) => this.viewEpService.getEducationPlanById(epId)),
-    ).subscribe(() => this.cdr.markForCheck());
 
   }
 

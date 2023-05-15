@@ -34,7 +34,9 @@ export class HttpService {
       tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
       finalize(() => this.progressBarService.hide()),
       catchError((err) => {
-        this.toastr.error(err.message || this.toastrConfig.errorMsg);
+        if (showToastr) {
+          this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
+        }
         return of(new Error(err));
       }),
     ) as Observable<T>;
@@ -55,7 +57,9 @@ export class HttpService {
       tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
       finalize(() => this.progressBarService.hide()),
       catchError((err) => {
-        this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
+        if (showToastr) {
+          this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
+        }
         return throwError(() => new Error(err));
       })
     );

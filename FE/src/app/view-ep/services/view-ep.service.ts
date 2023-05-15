@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { SearchEP } from '../models/education-plan';
+import { EducationPlan, SearchEP } from '../models/education-plan';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ViewEpService {
   }
 
   getEducationPlanById(id: string) {
-    return this.http.get('/api/ep-ids/ep-by-id', {
+    return this.http.get<EducationPlan>('/api/ep-ids/ep-by-id', {
       params: {
         epId: id
       }

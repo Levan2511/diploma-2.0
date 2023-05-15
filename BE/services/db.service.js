@@ -24,6 +24,12 @@ class DatabaseService {
 
     return educationPlanIds;
   }
+
+  async getEducationPlanById(id) {
+    const { educationPlans } = await this.getData();
+
+    return educationPlans[id];
+  }
 }
 
 module.exports = DatabaseService;

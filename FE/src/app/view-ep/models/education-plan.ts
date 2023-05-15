@@ -26,6 +26,8 @@ export interface EducationPlanForTerm {
   RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
 
+export type EducationPlan = EducationPlanForTerm[][];
+
 export interface DisplayColumn {
   name: string;
   key: keyof EducationPlanForTerm

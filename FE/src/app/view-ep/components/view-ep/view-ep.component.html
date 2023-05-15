@@ -1,14 +1,22 @@
-<mat-accordion displayMode="flat" [multi]="true">
-  <mat-expansion-panel *ngFor="let term of educationPlan; let i = index">
-    <mat-expansion-panel-header>
-      <mat-panel-title class="justify-content-center">
-        <div class="panel-title">{{i + 1}} Семестр</div>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
+<ng-template #noData>
+  <mat-card>
+    <mat-card-title>No Data Found</mat-card-title>
+  </mat-card>
+</ng-template>
 
-    <lk-table
-      [dataSource]="term"
-      [displayedColumns]="displayedColumns"
-    ></lk-table>
-  </mat-expansion-panel>
-</mat-accordion>
+<ng-container *ngIf="educationPlan$ | async as ep; else noData">
+  <mat-accordion displayMode="flat" [multi]="true">
+    <mat-expansion-panel *ngFor="let term of ep; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="justify-content-center">
+          <div class="panel-title">{{i + 1}} Семестр</div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+  
+      <lk-table
+        [dataSource]="term"
+        [displayedColumns]="displayedColumns"
+      ></lk-table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
