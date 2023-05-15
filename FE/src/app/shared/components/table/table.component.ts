@@ -106,6 +106,7 @@ export class TableComponent implements OnInit {
     const tmpArr = [...this.dataSource];
     tmpArr.splice(rowIndex, 1)
     this.dataSource = tmpArr;
+    this.formArr = this.initForm();
   }
 
   onRowClick(el: EducationPlanForTerm) {
