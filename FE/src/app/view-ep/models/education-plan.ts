@@ -13,8 +13,8 @@ export interface EducationPlanForTerm {
   lectures1: number;
   lectures2: number;
   labs: number;
-  labs1: string;
-  labs2: string;
+  labs1: number;
+  labs2: number;
   practical: number;
   practical1: number;
   practical2: number;
@@ -22,7 +22,6 @@ export interface EducationPlanForTerm {
   selfWork: number;
   totalHours: number;
   credits: number;
-  delete: string;
   RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
 

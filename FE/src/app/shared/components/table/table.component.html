@@ -81,6 +81,9 @@
             <ng-container *ngTemplateOutlet="lecturesTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card class="d-flex flex-column">
+            <ng-container *ngTemplateOutlet="labsTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
+          </mat-card>
+          <mat-card class="d-flex flex-column">
             <ng-container *ngTemplateOutlet="practicalTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
           <mat-card class="d-flex flex-column">
@@ -155,6 +158,20 @@
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 2 1/2</mat-label>
       <input formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  </form>
+</ng-template>
+
+<ng-template #labsTemplate let-row let-rowIndex="rowIndex">
+  <form [formGroup]="getFormGroup(rowIndex)">
+    <mat-form-field class="example-full-width">
+      <mat-label>Лабораторні 1 1/2</mat-label>
+      <input formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Лабораторні 2 1/2</mat-label>
+      <input formControlName="labs2" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   </form>
 </ng-template>

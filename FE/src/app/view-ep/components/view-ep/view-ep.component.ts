@@ -1,9 +1,10 @@
+import { columnHeadersMapForExcel } from './../../../shared/components/table/table-data';
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { educationPlan, educationPlanForTerm, tableColumns } from 'src/app/shared/components/table/table-data';
+import { tableColumns } from 'src/app/shared/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, filter, finalize, switchMap, tap, map } from 'rxjs';
-import { EducationPlan } from '../../models/education-plan';
+import { EducationPlan, EducationPlanForTerm } from '../../models/education-plan';
 import { isEmpty, isUndefined } from 'lodash';
 import { ExcelService } from 'src/app/core/services/excel.service';
 
@@ -46,8 +47,20 @@ export class ViewEpComponent implements OnInit {
   }
 
   saveExcel(ep: EducationPlan) {
+    const epName = this.activatedRoute.snapshot.queryParamMap.get('epId');
+
+    // const data = 
+
     ep.forEach((cycle, i) => {
-      this.excelService.exportAsExcelFile(cycle, `${i + 1} Семестр`);
+      // map to Cyrillic words
+      const data = cycle.map((subject) => {
+        return Object.entries(subject).reduce((prev, curr) => {
+          const oldKey = curr[0] as keyof EducationPlanForTerm;
+          return {...prev, [columnHeadersMapForExcel[oldKey]]: curr[1]}
+        }, {})
+      });
+
+      this.excelService.exportAsExcelFile(data, `${i + 1} Семестр__${epName}`);
     });
   }
 }
