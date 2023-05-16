@@ -4,7 +4,8 @@ import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, filter, finalize, switchMap, tap, map } from 'rxjs';
 import { EducationPlan } from '../../models/education-plan';
-import { isEmpty } from 'lodash';
+import { isEmpty, isUndefined } from 'lodash';
+import { ExcelService } from 'src/app/core/services/excel.service';
 
 @Component({
   selector: 'lk-view-ep',
@@ -18,6 +19,7 @@ export class ViewEpComponent implements OnInit {
   displayedColumns = tableColumns;
   educationPlan$: Observable<EducationPlan | null> = this.activatedRoute.queryParams.pipe(
     filter(({ epId }) => !!epId),
+    tap(() => this.searchCompleted = false),
     switchMap(({ epId }) => this.viewEpService.getEducationPlanById(epId)),
     map(value => {
       this.searchCompleted = true;
@@ -29,14 +31,23 @@ export class ViewEpComponent implements OnInit {
     })
   );
 
+  queryParamEmpty$: Observable<boolean> = this.activatedRoute.queryParams.pipe(
+    map(({ epId }) => isUndefined(epId) || isEmpty(epId))
+  )
+
   constructor(
     private viewEpService: ViewEpService,
     private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private excelService: ExcelService
   ) { }
 
   ngOnInit(): void {
-
   }
 
+  saveExcel(ep: EducationPlan) {
+    ep.forEach((cycle, i) => {
+      this.excelService.exportAsExcelFile(cycle, `${i + 1} Семестр`);
+    });
+  }
 }

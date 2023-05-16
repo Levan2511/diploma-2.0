@@ -42,10 +42,6 @@ export class SearchEpComponent implements OnInit, OnDestroy {
       this.dataLoading = false;
       this.cdr.markForCheck();
     });
-    this.stateGroupOptions$ = this.epForm.get('ep')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGroup(value || '')),
-    );
     this.setQueryParamsOnValueChanges();
   }
 
@@ -54,11 +50,12 @@ export class SearchEpComponent implements OnInit, OnDestroy {
   }
 
   private setQueryParamsOnValueChanges() {
-    this.epForm.get('ep')!.valueChanges.pipe(
+    this.stateGroupOptions$ = this.epForm.get('ep')!.valueChanges.pipe(
       debounceTime(250),
       tap(epId => this.router.navigate([], { queryParams: { epId } })),
+      map(value => this._filterGroup(value || '')),
       takeUntil(this.destroy$)
-    ).subscribe();
+    );
   }
 
   private _filterGroup(value: string): SearchEP[] {

@@ -1,14 +1,15 @@
 <ng-template #noData>
-  <mat-card *ngIf="searchCompleted">
+  <mat-card *ngIf="!(queryParamEmpty$ | async) && searchCompleted">
     <mat-card-title>Нічого не знайдено</mat-card-title>
   </mat-card>
 </ng-template>
 
-<mat-card *ngIf="!searchCompleted">
+<mat-card *ngIf="queryParamEmpty$ | async">
   <mat-card-title>Оберіть навчальний план</mat-card-title>
 </mat-card>
 
 <ng-container *ngIf="educationPlan$ | async as ep; else noData">
+  <button mat-flat-button color="primary" (click)="saveExcel(ep)">Зберегти Excel</button>
   <mat-accordion displayMode="flat" [multi]="true">
     <mat-expansion-panel *ngFor="let term of ep; let i = index">
       <mat-expansion-panel-header>
