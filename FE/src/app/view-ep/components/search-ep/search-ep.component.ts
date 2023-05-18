@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { SearchEP } from '../../models/education-plan';
-import { Observable, debounceTime, map, startWith, tap, Subject, takeUntil } from 'rxjs';
+import { Observable, debounceTime, map, startWith, tap, Subject, takeUntil, switchMap } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { ViewEpService } from '../../services/view-ep.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -37,12 +37,19 @@ export class SearchEpComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.viewEpService.getEducationPlanIds().subscribe(value => {
-      this.educationPrograms = value;
-      this.dataLoading = false;
-      this.cdr.markForCheck();
-    });
-    this.setQueryParamsOnValueChanges();
+    this.stateGroupOptions$ = this.viewEpService.getEducationPlanIds().pipe(
+      tap(value => {
+        this.educationPrograms = value;
+        this.dataLoading = false;
+        this.cdr.markForCheck();
+      }),
+      switchMap(() => this.epForm.get('ep')!.valueChanges),
+      startWith(''),
+      debounceTime(250),
+      tap(epId => this.router.navigate([], { queryParams: { epId } })),
+      map(value => this._filterGroup(value || '')),
+      takeUntil(this.destroy$)
+    );
   }
 
   ngOnDestroy() {
