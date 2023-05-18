@@ -44,7 +44,7 @@ export class SearchEpComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }),
       switchMap(() => this.epForm.get('ep')!.valueChanges),
-      startWith(''),
+      startWith(this.getDefaultValueFromQueryParams() || ''),
       debounceTime(250),
       tap(epId => this.router.navigate([], { queryParams: { epId } })),
       map(value => this._filterGroup(value || '')),
@@ -54,15 +54,6 @@ export class SearchEpComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next()
-  }
-
-  private setQueryParamsOnValueChanges() {
-    this.stateGroupOptions$ = this.epForm.get('ep')!.valueChanges.pipe(
-      debounceTime(250),
-      tap(epId => this.router.navigate([], { queryParams: { epId } })),
-      map(value => this._filterGroup(value || '')),
-      takeUntil(this.destroy$)
-    );
   }
 
   private _filterGroup(value: string): SearchEP[] {

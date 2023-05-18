@@ -1,10 +1,10 @@
 
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DisplayColumn, EducationPlanForTerm } from '../../../view-ep/models/education-plan';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { isEqual } from 'lodash';
+import { cloneDeep, isEqual, isNumber } from 'lodash';
 
 @Component({
   selector: 'lk-table',
@@ -19,9 +19,32 @@ import { isEqual } from 'lodash';
   ],
 })
 export class TableComponent implements OnInit {
+  @Output() dataChanged = new EventEmitter<boolean>();
+
   @Input() displayedColumns!: DisplayColumn[];
-  @Input() dataSource!: EducationPlanForTerm[];
+  @Input() set dataSource(value: EducationPlanForTerm[]) {
+    this._dataSource = value;
+
+    if (!this.untouchedDataSource.set) {
+      this.untouchedDataSource.source = cloneDeep(value);
+      this.untouchedDataSource.set= true;
+    }
+
+    if (!isEqual(this.dataSource, this.untouchedDataSource.source)) {
+      this.dataChanged.emit(true);
+    }
+  };
+
+  get dataSource(): EducationPlanForTerm[] {
+    return this._dataSource;
+  }
   
+  private untouchedDataSource: {
+    set?: boolean;
+    source?: EducationPlanForTerm[];
+  } = {};
+
+  private _dataSource!: EducationPlanForTerm[];
   columnsToDisplayWithExpand!: string[];
   expandedElement!: EducationPlanForTerm | null;
 
@@ -41,6 +64,7 @@ export class TableComponent implements OnInit {
   }
 
   getFormGroup(index: any): FormGroup {
+    console.log('getFormGroup', index, this.formArr.at(index).value)
     return this.formArr.at(index) as FormGroup;
   }
 
@@ -90,9 +114,11 @@ export class TableComponent implements OnInit {
   onSaveRow(rowIndex: number) {
     this.switchEditMode(false, rowIndex);
 
-    if (isEqual(this.dataSource, this.formArr.value)) {
+    if (isEqual(this.untouchedDataSource.source, this.formArr.value)) {
+      this.dataChanged.emit(false);
       return;
     }
+
     this.dataSource = this.formArr.value;
   }
 

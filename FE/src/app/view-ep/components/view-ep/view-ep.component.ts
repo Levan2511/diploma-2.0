@@ -34,7 +34,9 @@ export class ViewEpComponent implements OnInit {
 
   queryParamEmpty$: Observable<boolean> = this.activatedRoute.queryParams.pipe(
     map(({ epId }) => isUndefined(epId) || isEmpty(epId))
-  )
+  );
+
+  dataChanged!: boolean;
 
   constructor(
     private viewEpService: ViewEpService,
@@ -62,5 +64,9 @@ export class ViewEpComponent implements OnInit {
 
       this.excelService.exportAsExcelFile(data, `${i + 1} Семестр__${epName}`);
     });
+  }
+
+  onDataChanged(value: boolean) {
+    this.dataChanged = value;
   }
 }

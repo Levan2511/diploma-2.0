@@ -8,9 +8,9 @@
 
       <!-- Show Inputs in exact row instead of usual field if it is Edit Mode -->
       <ng-container *ngIf="isEditMode">
-        <form *ngIf="editRowIndex === i" [formGroup]="getFormGroup(i)">
+        <form *ngIf="editRowIndex === i" [formGroup]="formArr | getFormGroup: i">
           <mat-form-field>
-            <input matInput [formControlName]="column.key">
+            <input matInput #input [formControlName]="column.key">
           </mat-form-field>
         </form>
 
@@ -70,7 +70,7 @@
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element; let i = dataIndex" [attr.colspan]="columnsToDisplayWithExpand.length">
       <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <form [formGroup]="getFormGroup(i)" class="expanded-wrapper">
+        <form [formGroup]="formArr | getFormGroup: i" class="expanded-wrapper">
           <mat-card>
             <ng-container *ngTemplateOutlet="examTemplate; context: { $implicit: element, rowIndex: i }"></ng-container>
           </mat-card>
@@ -105,7 +105,7 @@
 
 
 <ng-template #examTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
@@ -124,7 +124,7 @@
 </ng-template>
 
 <ng-template #RGRTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="radio-group"
@@ -149,7 +149,7 @@
 </ng-template>
 
 <ng-template #lecturesTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 1 1/2</mat-label>
       <input formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
@@ -163,7 +163,7 @@
 </ng-template>
 
 <ng-template #labsTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Лабораторні 1 1/2</mat-label>
       <input formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
@@ -177,7 +177,7 @@
 </ng-template>
 
 <ng-template #practicalTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Пр. 1 (2/2)</mat-label>
       <input formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
@@ -192,7 +192,7 @@
 </ng-template>
 
 <ng-template #creditsTemplate let-row let-rowIndex="rowIndex">
-  <form [formGroup]="getFormGroup(rowIndex)">
+  <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Кредити</mat-label>
       <input formControlName="credits" type="number" [min]="0" matInput placeholder="1">
