@@ -7,7 +7,6 @@ import { FormArray, FormGroup } from '@angular/forms';
 export class GetFormGroupPipe implements PipeTransform {
 
   transform(formArr: FormArray, index: any): FormGroup {
-    console.log('getFormGroup', index, formArr.at(index).value)
     return formArr.at(index) as FormGroup;
   }
 

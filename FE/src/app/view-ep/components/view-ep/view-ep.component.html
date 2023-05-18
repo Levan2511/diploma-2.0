@@ -11,7 +11,7 @@
 <ng-container *ngIf="!(queryParamEmpty$ | async) && (educationPlan$ | async) as ep; else noData">
   <button mat-flat-button (click)="saveExcel(ep)">Зберегти Excel</button>
 
-  <button mat-flat-button color="primary" [disabled]="!dataChanged" (click)="null">Зберегти зміни</button>
+  <button mat-flat-button color="primary" (click)="null">Зберегти зміни</button>
 
   <mat-accordion displayMode="flat" [multi]="true">
     <mat-expansion-panel *ngFor="let term of ep; let i = index">
@@ -24,7 +24,6 @@
       <lk-table
         [dataSource]="term"
         [displayedColumns]="displayedColumns"
-        (dataChanged)="onDataChanged($event)"
       ></lk-table>
     </mat-expansion-panel>
   </mat-accordion>

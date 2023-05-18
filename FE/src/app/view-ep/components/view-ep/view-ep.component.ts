@@ -36,8 +36,6 @@ export class ViewEpComponent implements OnInit {
     map(({ epId }) => isUndefined(epId) || isEmpty(epId))
   );
 
-  dataChanged!: boolean;
-
   constructor(
     private viewEpService: ViewEpService,
     private activatedRoute: ActivatedRoute,
@@ -64,9 +62,5 @@ export class ViewEpComponent implements OnInit {
 
       this.excelService.exportAsExcelFile(data, `${i + 1} Семестр__${epName}`);
     });
-  }
-
-  onDataChanged(value: boolean) {
-    this.dataChanged = value;
   }
 }
