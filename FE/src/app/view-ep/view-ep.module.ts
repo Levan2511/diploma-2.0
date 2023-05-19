@@ -4,7 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ViewEpComponent } from './components/view-ep/view-ep.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -22,11 +21,5 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
   exports: [
     ViewEpComponent,
   ],
-  providers: [
-    {
-      provide: BrowserAnimationsModule,
-      useClass: NoopAnimationsModule
-    }
-  ]
 })
 export class ViewEpModule { }
