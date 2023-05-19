@@ -34,7 +34,7 @@ export class CountTotalWorkService {
     );
   }
 
-  getTotalSubjectClasswork(index: number): Observable<number> {
+  getTotalSubjectClasswork$(index: number): Observable<number> {
     return combineLatest([
       this.getTotalSubjectLabs$(index),
       this.getTotalSubjectLectures$(index),

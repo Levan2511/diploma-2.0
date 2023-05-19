@@ -1,9 +1,9 @@
 import { columnHeadersMapForExcel } from './../../../shared/components/table/table-data';
-import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
 import { tableColumns } from 'src/app/shared/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, filter, finalize, switchMap, tap, map } from 'rxjs';
+import { Observable, filter, switchMap, tap, map } from 'rxjs';
 import { EducationPlan, EducationPlanForTerm } from '../../models/education-plan';
 import { isEmpty, isUndefined } from 'lodash';
 import { ExcelService } from 'src/app/core/services/excel.service';
@@ -14,7 +14,7 @@ import { ExcelService } from 'src/app/core/services/excel.service';
   styleUrls: ['./view-ep.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewEpComponent implements OnInit {
+export class ViewEpComponent {
   searchCompleted = false;
 
   displayedColumns = tableColumns;
@@ -43,13 +43,8 @@ export class ViewEpComponent implements OnInit {
     private excelService: ExcelService
   ) { }
 
-  ngOnInit(): void {
-  }
-
   saveExcel(ep: EducationPlan) {
     const epName = this.activatedRoute.snapshot.queryParamMap.get('epId');
-
-    // const data = 
 
     ep.forEach((cycle, i) => {
       // map to Cyrillic words
