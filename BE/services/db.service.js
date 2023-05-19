@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
-const path = require('path')
+const path = require('path');
+const { getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectLabs, getTotalSubjectClassWork } = require('../utils/total-counter');
 
 class DatabaseService {
   DB = null;
@@ -28,7 +29,17 @@ class DatabaseService {
   async getEducationPlanById(id) {
     const { educationPlans } = await this.getData();
 
-    return educationPlans[id];
+    return educationPlans[id].map(cycle => {
+      return cycle.map(subj => {
+        return {
+          ...subj,
+          lectures: getTotalSubjectLectures(subj),
+          practical: getTotalSubjectPractics(subj),
+          labs: getTotalSubjectLabs(subj),
+          classHours: getTotalSubjectClassWork(subj),
+        }
+      })
+    });
   }
 }
 

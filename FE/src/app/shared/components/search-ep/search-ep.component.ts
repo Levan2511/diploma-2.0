@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { SearchEP } from '../../models/education-plan';
 import { Observable, debounceTime, map, startWith, tap, Subject, takeUntil, switchMap } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { ViewEpService } from '../../services/view-ep.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ViewEpService } from 'src/app/view-ep/services/view-ep.service';
+import { SearchEP } from 'src/app/view-ep/models/education-plan';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();

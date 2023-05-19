@@ -1,5 +1,5 @@
 import { columnHeadersMapForExcel } from './../../../shared/components/table/table-data';
-import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef, Inject } from '@angular/core';
 import { tableColumns } from 'src/app/shared/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,12 +7,20 @@ import { Observable, filter, switchMap, tap, map } from 'rxjs';
 import { EducationPlan, EducationPlanForTerm } from '../../models/education-plan';
 import { isEmpty, isUndefined } from 'lodash';
 import { ExcelService } from 'src/app/core/services/excel.service';
+import { EXPANSION_PANEL_ANIMATION_TIMING, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanelDefaultOptions } from '@angular/material/expansion';
 
 @Component({
   selector: 'lk-view-ep',
   templateUrl: './view-ep.component.html',
   styleUrls: ['./view-ep.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
+    useValue: {
+      expandedHeight: '60px',
+      collapsedHeight: '60px'
+    }
+  }]
 })
 export class ViewEpComponent {
   searchCompleted = false;
@@ -40,7 +48,8 @@ export class ViewEpComponent {
     private viewEpService: ViewEpService,
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private excelService: ExcelService
+    private excelService: ExcelService,
+    @Inject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS) panelOptions: MatExpansionPanelDefaultOptions,
   ) { }
 
   saveExcel(ep: EducationPlan) {

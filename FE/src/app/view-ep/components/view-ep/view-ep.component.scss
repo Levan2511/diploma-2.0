@@ -10,8 +10,8 @@
     font-weight: 500;
   }
 
-  mat-accordion,
-  mat-expansion-panel {
-    transition: none;
+  mat-expansion-panel,
+  mat-expansion-panel * {
+    transition: none !important;
   }
 }
