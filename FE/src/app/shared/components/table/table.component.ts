@@ -1,11 +1,8 @@
-
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DisplayColumn, EducationPlanForTerm } from '../../../view-ep/models/education-plan';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { cloneDeep, isEqual, isNumber } from 'lodash';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { state, style, trigger } from '@angular/animations';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { CountTotalWorkService } from '../../services/count-total-work.service';
+import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 
 @Component({
   selector: 'lk-table',
@@ -21,17 +18,17 @@ import { CountTotalWorkService } from '../../services/count-total-work.service';
 })
 export class TableComponent implements OnInit {
   @Input() displayedColumns!: DisplayColumn[];
-  @Input() set dataSource(value: EducationPlanForTerm[]) {
+  @Input() set dataSource(value: TermPlan) {
     this._dataSource = value;
   };
 
-  get dataSource(): EducationPlanForTerm[] {
+  get dataSource(): TermPlan {
     return this._dataSource;
   }
 
-  private _dataSource!: EducationPlanForTerm[];
+  private _dataSource!: TermPlan;
   columnsToDisplayWithExpand!: string[];
-  expandedElement!: EducationPlanForTerm | null;
+  expandedElement!: SubjectInfo | null;
 
   isEditMode = false;
   editRowIndex!: number | undefined;
@@ -64,7 +61,7 @@ export class TableComponent implements OnInit {
     return formArrayResult;
   }
 
-  onEdit(el: EducationPlanForTerm, rowIndex: number): void {
+  onEdit(el: SubjectInfo, rowIndex: number): void {
     if (!this.isEditMode) {
       this.switchEditMode(true, rowIndex, el);
 
@@ -77,7 +74,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  private switchEditMode(value: boolean, rowIndex: number, el: EducationPlanForTerm | null = null) {
+  private switchEditMode(value: boolean, rowIndex: number, el: SubjectInfo | null = null) {
     this.isEditMode = value;
 
     if (value) {
@@ -108,7 +105,7 @@ export class TableComponent implements OnInit {
     this.formArr = this.initForm();
   }
 
-  onRowClick(el: EducationPlanForTerm) {
+  onRowClick(el: SubjectInfo) {
     if (this.isEditMode) {
       return;
     }

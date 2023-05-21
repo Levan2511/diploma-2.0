@@ -1,7 +1,7 @@
+import { EducationPlan, SearchEP } from '@common/ep-models';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { EducationPlan, SearchEP } from '../models/education-plan';
 
 @Injectable({
   providedIn: 'root'

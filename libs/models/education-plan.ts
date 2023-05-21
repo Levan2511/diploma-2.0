@@ -3,7 +3,7 @@ export interface SearchEP {
   ids: string[];
 }
 
-export interface EducationPlanForTerm {
+export interface SubjectInfo {
   cycle: number;
   term: number;
   name: string;
@@ -25,9 +25,11 @@ export interface EducationPlanForTerm {
   RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
 
-export type EducationPlan = EducationPlanForTerm[][];
+export type TermPlan = SubjectInfo[];
+
+export type EducationPlan = TermPlan[];
 
 export interface DisplayColumn {
   name: string;
-  key: keyof EducationPlanForTerm
+  key: keyof SubjectInfo
 }

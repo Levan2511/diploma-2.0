@@ -3,7 +3,7 @@ import { Observable, debounceTime, map, startWith, tap, Subject, takeUntil, swit
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViewEpService } from 'src/app/view-ep/services/view-ep.service';
-import { SearchEP } from 'src/app/view-ep/models/education-plan';
+import { SearchEP } from '@common/ep-models';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();

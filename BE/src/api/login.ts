@@ -1,10 +1,11 @@
-const express = require('express');
-const LoginService = require('../services/login.service');
+import express, { Request, Response } from "express";
+import { LoginService } from "../services/login.service";
+
 const authRouter = express.Router();
 
 const loginService = new LoginService();
 
-authRouter.post('/', async (req, res) => {
+authRouter.post('/', async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const { uid, password } = req.body;

@@ -1,10 +1,12 @@
+import { Request, Response } from "express";
+import { DatabaseService } from "../services/db.service";
+
 const express = require('express');
-const DatabaseService = require('../services/db.service');
 const epRouter = express.Router();
 
 const dbService = new DatabaseService();
 
-epRouter.get('/', async (req, res) => {
+epRouter.get('/', async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const educationPlanIds = await dbService.getEducationPlanIds();
@@ -12,11 +14,9 @@ epRouter.get('/', async (req, res) => {
     return res.status(200).json(educationPlanIds);
 });
 
-epRouter.get('/ep-by-id', async (req, res) => {
-    
-    console.log('QUERY PARAMS', req.query);
+epRouter.get('/ep-by-id', async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    const epId = req.query['epId'];
+    const epId = req.query['epId'] as string;
 
     const educationPlan = await dbService.getEducationPlanById(epId);
 

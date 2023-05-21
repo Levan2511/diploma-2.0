@@ -1,32 +1,36 @@
+import { EducationPlan } from "@common/ep-models";
+import { Database, EducationPlanIds, User } from "../models/db";
+
 const fs = require('fs').promises;
 const path = require('path');
 const { getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectLabs, getTotalSubjectClassWork } = require('../utils/total-counter');
 
-class DatabaseService {
-  DB = null;
+export class DatabaseService {
+  DB!: Database;
+
   pathToDB = path.resolve('./DB/db.json');
 
   constructor() {
     this.getData().then((db) => this.DB = db);
   }
 
-  async getData() {
+  async getData(): Promise<Database> {
     return JSON.parse(await fs.readFile(this.pathToDB))
   }
 
-  async getUsers() {
+  async getUsers(): Promise<User[]> {
     const { users } = await this.getData();
 
     return users;
   }
 
-  async getEducationPlanIds() {
+  async getEducationPlanIds(): Promise<EducationPlanIds> {
     const { educationPlanIds } = await this.getData();
 
     return educationPlanIds;
   }
 
-  async getEducationPlanById(id) {
+  async getEducationPlanById(id: string): Promise<EducationPlan> {
     const { educationPlans } = await this.getData();
 
     return educationPlans[id].map(cycle => {
@@ -42,5 +46,3 @@ class DatabaseService {
     });
   }
 }
-
-module.exports = DatabaseService;

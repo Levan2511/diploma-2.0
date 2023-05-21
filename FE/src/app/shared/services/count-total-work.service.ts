@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { EducationPlanForTerm } from 'src/app/view-ep/models/education-plan';
+import { TermPlan } from '@common/ep-models';
 
 const COEF = 8;
 
@@ -8,11 +8,11 @@ const COEF = 8;
   providedIn: 'root'
 })
 export class CountTotalWorkService {
-  private data$$ = new BehaviorSubject<EducationPlanForTerm[]>([]);
+  private data$$ = new BehaviorSubject<TermPlan>([]);
 
   constructor() { }
 
-  setData(val: EducationPlanForTerm[]) {
+  setData(val: TermPlan) {
     this.data$$.next(val);
   }
 

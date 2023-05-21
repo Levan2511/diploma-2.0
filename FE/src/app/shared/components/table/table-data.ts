@@ -1,4 +1,6 @@
-import { DisplayColumn, EducationPlanForTerm } from "../../../view-ep/models/education-plan";
+import { TermPlan } from '@common/ep-models';
+import { DisplayColumn, SubjectInfo } from "@common/ep-models";
+
 
 export const tableColumns: DisplayColumn[] = [
   {
@@ -43,7 +45,7 @@ export const tableColumns: DisplayColumn[] = [
   },
 ];
 
-export const educationPlanForTerm: EducationPlanForTerm[] = [
+export const educationPlanForTerm: TermPlan = [
   {
     cycle: 1,
     term: 2,
@@ -67,7 +69,7 @@ export const educationPlanForTerm: EducationPlanForTerm[] = [
   },
 ];
 
-export const columnHeadersMapForExcel: Record<keyof EducationPlanForTerm, string> = {
+export const columnHeadersMapForExcel: Record<keyof SubjectInfo, string> = {
   cycle: 'Цикл',
   term: 'Семестр',
   name: 'Навчальна дисципліна',

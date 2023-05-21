@@ -4,10 +4,10 @@ import { tableColumns } from 'src/app/shared/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, filter, switchMap, tap, map } from 'rxjs';
-import { EducationPlan, EducationPlanForTerm } from '../../models/education-plan';
 import { isEmpty, isUndefined } from 'lodash';
 import { ExcelService } from 'src/app/core/services/excel.service';
 import { EXPANSION_PANEL_ANIMATION_TIMING, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanelDefaultOptions } from '@angular/material/expansion';
+import { EducationPlan, SubjectInfo } from '@common/ep-models';
 
 @Component({
   selector: 'lk-view-ep',
@@ -59,7 +59,7 @@ export class ViewEpComponent {
       // map to Cyrillic words
       const data = cycle.map((subject) => {
         return Object.entries(subject).reduce((prev, curr) => {
-          const oldKey = curr[0] as keyof EducationPlanForTerm;
+          const oldKey = curr[0] as keyof SubjectInfo;
           return {...prev, [columnHeadersMapForExcel[oldKey]]: curr[1]}
         }, {})
       });
