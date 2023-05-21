@@ -1,9 +1,9 @@
 import { EducationPlan } from "@common/ep-models";
 import { Database, EducationPlanIds, User } from "../models/db";
+import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "../utils/total-counter";
 
 const fs = require('fs').promises;
 const path = require('path');
-const { getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectLabs, getTotalSubjectClassWork } = require('../utils/total-counter');
 
 export class DatabaseService {
   DB!: Database;
@@ -41,6 +41,8 @@ export class DatabaseService {
           practical: getTotalSubjectPractics(subj),
           labs: getTotalSubjectLabs(subj),
           classHours: getTotalSubjectClassWork(subj),
+          totalHours: getTotalSubjectHours(subj),
+          selfWork: getTotalSubjectSelfWork(subj),
         }
       })
     });
