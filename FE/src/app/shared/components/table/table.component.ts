@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { state, style, trigger } from '@angular/animations';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountTotalWorkService } from '../../services/count-total-work.service';
 import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 
@@ -66,6 +66,44 @@ export class TableComponent implements OnInit {
     return formArrayResult;
   }
 
+  // private listenToFormChange(formArr: FormArray) {
+  //   const COEF = 8;
+
+  //   formArr.controls.forEach((v: AbstractControl, i) => {
+  //     const formGroup = v as FormGroup;
+  //     const practicalControl = formGroup.get('practical');
+  //     const lecturesControl = formGroup.get('lectures');
+  //     const labsControl = formGroup.get('labs');
+
+  //     formGroup.get('practical1')?.valueChanges.subscribe(val => {
+  //       practicalControl?.setValue((val + formGroup.value.practical2) * COEF);
+  //     });
+
+  //     formGroup.get('practical2')?.valueChanges.subscribe(val => {
+  //       practicalControl?.setValue((val + formGroup.value.practical1) * COEF);
+  //     });
+
+  //     formGroup.get('lectures1')?.valueChanges.subscribe(val => {
+  //       lecturesControl?.setValue((val + formGroup.value.lectures2) * COEF);
+  //     });
+
+  //     formGroup.get('lectures2')?.valueChanges.subscribe(val => {
+  //       lecturesControl?.setValue((val + formGroup.value.lectures1) * COEF);
+  //     });
+
+  //     formGroup.get('labs1')?.valueChanges.subscribe(val => {
+  //       labsControl?.setValue((val + formGroup.value.labs2) * COEF);
+  //     });
+
+  //     formGroup.get('labs2')?.valueChanges.subscribe(val => {
+  //       labsControl?.setValue((val + formGroup.value.labs1) * COEF);
+  //     });
+
+
+  //     // console.table(formGroup.value);
+  //   })
+  // }
+
   onEdit(el: SubjectInfo, rowIndex: number): void {
     if (!this.isEditMode) {
       this.switchEditMode(true, rowIndex, el);
@@ -95,6 +133,22 @@ export class TableComponent implements OnInit {
 
   onSaveRow(rowIndex: number) {
     this.switchEditMode(false, rowIndex);
+
+    const COEF = 8;
+    const formGroup = this.formArr.at(rowIndex) as FormGroup;
+    const { lectures1, lectures2, labs1, labs2, practical1, practical2 } = formGroup.value;
+
+    // const newValue: Partial<SubjectInfo> = {
+    //   lectures: (lectures1 + lectures2) * COEF,
+    //   practical: (practical1 + practical2) * COEF,
+    //   labs: (labs1 + labs2) * COEF,
+    //   selfWork:,
+    //   classHours: this.,
+    //   totalHours: 
+    // }
+
+    // this.formArr.at(rowIndex).patchValue(newValue);
+
     this.dataSource = this.formArr.value;
   }
 
