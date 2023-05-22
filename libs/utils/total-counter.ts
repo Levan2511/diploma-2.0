@@ -1,4 +1,4 @@
-import { SubjectInfo } from '@common/ep-models';
+import { SubjectInfo } from '../models/education-plan';
 
 const COEF = 8;
 const CREDIT_COEF = 30;

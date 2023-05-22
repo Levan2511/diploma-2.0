@@ -23,7 +23,8 @@
       "dom"
     ],
     "paths": {
-      "@common/ep-models": ["../libs/models/education-plan.ts"]
+      "@common/ep-models": ["../libs/models/education-plan.ts"],
+      "@common/utils": ["../libs/utils/total-counter.ts"],
     }
   },
   "angularCompilerOptions": {

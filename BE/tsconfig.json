@@ -106,7 +106,8 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
     "paths": {
-      "@common/ep-models": ["../libs/models/education-plan.ts"]
+      "@common/ep-models": ["../libs/models/education-plan.ts"],
+      "@common/utils": ["../libs/utils/total-counter.ts"],
     }                                 /* Skip type checking all .d.ts files. */
   },
   "include": [

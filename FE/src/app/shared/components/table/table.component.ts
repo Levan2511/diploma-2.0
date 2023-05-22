@@ -3,6 +3,7 @@ import { state, style, trigger } from '@angular/animations';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountTotalWorkService } from '../../services/count-total-work.service';
 import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
+import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
 
 @Component({
   selector: 'lk-table',
@@ -134,20 +135,19 @@ export class TableComponent implements OnInit {
   onSaveRow(rowIndex: number) {
     this.switchEditMode(false, rowIndex);
 
-    const COEF = 8;
     const formGroup = this.formArr.at(rowIndex) as FormGroup;
-    const { lectures1, lectures2, labs1, labs2, practical1, practical2 } = formGroup.value;
+    const subject = formGroup.value;
 
-    // const newValue: Partial<SubjectInfo> = {
-    //   lectures: (lectures1 + lectures2) * COEF,
-    //   practical: (practical1 + practical2) * COEF,
-    //   labs: (labs1 + labs2) * COEF,
-    //   selfWork:,
-    //   classHours: this.,
-    //   totalHours: 
-    // }
+    const newValue: Partial<SubjectInfo> = {
+      lectures: getTotalSubjectLectures(subject),
+      practical: getTotalSubjectPractics(subject),
+      labs: getTotalSubjectLabs(subject),
+      selfWork: getTotalSubjectSelfWork(subject),
+      classHours: getTotalSubjectClassWork(subject),
+      totalHours: getTotalSubjectHours(subject)
+    }
 
-    // this.formArr.at(rowIndex).patchValue(newValue);
+    this.formArr.at(rowIndex).patchValue(newValue);
 
     this.dataSource = this.formArr.value;
   }

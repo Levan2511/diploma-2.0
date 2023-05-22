@@ -1,6 +1,6 @@
 import { EducationPlan } from "@common/ep-models";
 import { Database, EducationPlanIds, User } from "../models/db";
-import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "../utils/total-counter";
+import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
 
 const fs = require('fs').promises;
 const path = require('path');
