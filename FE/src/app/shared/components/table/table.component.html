@@ -10,7 +10,8 @@
       <ng-container *ngIf="isEditMode">
         <form *ngIf="editRowIndex === i" [formGroup]="formArr | getFormGroup: i">
           <mat-form-field>
-            <input matInput #input [formControlName]="column.key">
+            <input *ngIf="column.key === 'cycle'" mask="0.0" matInput #input [formControlName]="column.key">
+            <input *ngIf="column.key !== 'cycle'" matInput #input [formControlName]="column.key">
           </mat-form-field>
         </form>
 

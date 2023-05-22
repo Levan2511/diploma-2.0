@@ -26,6 +26,7 @@
     "bootstrap": "^5.2.0",
     "file-saver": "^2.0.5",
     "lodash": "^4.17.21",
+    "ngx-mask": "^14.2.4",
     "ngx-toastr": "15.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

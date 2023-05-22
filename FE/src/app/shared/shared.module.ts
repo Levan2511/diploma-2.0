@@ -7,6 +7,7 @@ import { TableComponent } from './components/table/table.component';
 import { GetFormGroupPipe } from './pipes/get-form-group.pipe';
 import { SearchEpComponent } from './components/search-ep/search-ep.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxMaskModule.forRoot()
   ],
   exports: [
     TableComponent,
