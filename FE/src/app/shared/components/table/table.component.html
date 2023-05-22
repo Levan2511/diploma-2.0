@@ -9,10 +9,22 @@
       <!-- Show Inputs in exact row instead of usual field if it is Edit Mode -->
       <ng-container *ngIf="isEditMode">
         <form *ngIf="editRowIndex === i" [formGroup]="formArr | getFormGroup: i">
-          <mat-form-field>
-            <input *ngIf="column.key === 'cycle'" mask="0.0" matInput #input [formControlName]="column.key">
-            <input *ngIf="column.key !== 'cycle'" matInput #input [formControlName]="column.key">
-          </mat-form-field>
+          <ng-container [ngSwitch]="column.key">
+            <mat-form-field *ngSwitchCase="'cycle'">
+              <input matInput [dropSpecialCharacters]="false" mask="0.0" [formControlName]="column.key">
+            </mat-form-field>
+            <mat-form-field *ngSwitchCase="'term'">
+              <input matInput mask="0" [formControlName]="column.key">
+            </mat-form-field>
+            <mat-form-field *ngSwitchCase="'department'">
+              <input matInput mask="0999" [formControlName]="column.key">
+            </mat-form-field>
+            <mat-form-field *ngSwitchCase="'name'">
+              <input matInput #input [formControlName]="column.key">
+            </mat-form-field>
+
+            <ng-container *ngSwitchDefault>{{element[column.key]}}</ng-container>
+          </ng-container>
         </form>
 
         <!-- Load usual cell if current row is not in editMode-->
@@ -32,7 +44,15 @@
       </ng-container>
       
       <ng-container *ngIf="editRowIndex === i">
-        <button matTooltip="Зберегти" class="save-icon" mat-mini-fab aria-label="expand row" (click)="onSaveRow(i); $event.stopPropagation()">
+        <button
+          matTooltip="Зберегти"
+          mat-mini-fab
+          aria-label="expand row"
+          class="save-icon"
+          [class.disabled]="(formArr | getFormGroup: i).invalid"
+          [disabled]="(formArr | getFormGroup: i).invalid"
+          (click)="onSaveRow(i); $event.stopPropagation()"
+        >
           <mat-icon>check</mat-icon>
         </button>
       </ng-container>
@@ -153,12 +173,12 @@
   <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 1 1/2</mat-label>
-      <input formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 2 1/2</mat-label>
-      <input formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   </form>
 </ng-template>
@@ -167,12 +187,12 @@
   <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Лабораторні 1 1/2</mat-label>
-      <input formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   
     <mat-form-field class="example-full-width">
       <mat-label>Лабораторні 2 1/2</mat-label>
-      <input formControlName="labs2" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="labs2" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   </form>
 </ng-template>
@@ -181,12 +201,12 @@
   <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Пр. 1 (2/2)</mat-label>
-      <input formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   
     <mat-form-field class="example-full-width">
       <mat-label>Пр. 2 (1/2)</mat-label>
-      <input formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
+      <input [min]="0" [step]="0.5" formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
     </mat-form-field>
   </form>
   
@@ -196,7 +216,7 @@
   <form [formGroup]="formArr | getFormGroup: rowIndex">
     <mat-form-field class="example-full-width">
       <mat-label>Кредити</mat-label>
-      <input formControlName="credits" type="number" [min]="0" matInput placeholder="1">
+      <input formControlName="credits" type="number" [min]="0.5" [max]="30" [step]="0.5" matInput placeholder="1">
     </mat-form-field>
   </form>
 </ng-template>

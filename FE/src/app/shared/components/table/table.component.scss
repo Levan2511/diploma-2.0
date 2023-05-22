@@ -98,6 +98,10 @@ tr.example-element-row:not(.example-expanded-row):active {
 
   .save-icon {
     background-color: $accept-color;
+
+    &.disabled {
+      background-color: $decline-color;
+    }
   }
 
   .cancel-icon {
