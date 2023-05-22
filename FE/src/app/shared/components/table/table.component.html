@@ -11,7 +11,7 @@
         <form *ngIf="editRowIndex === i" [formGroup]="formArr | getFormGroup: i">
           <ng-container [ngSwitch]="column.key">
             <mat-form-field *ngSwitchCase="'cycle'">
-              <input matInput [dropSpecialCharacters]="false" mask="0.0" [formControlName]="column.key">
+              <input matInput [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="o.f" [formControlName]="column.key">
             </mat-form-field>
             <mat-form-field *ngSwitchCase="'term'">
               <input matInput mask="0" [formControlName]="column.key">

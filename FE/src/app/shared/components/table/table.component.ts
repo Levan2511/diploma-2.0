@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { state, style, trigger } from '@angular/animations';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { CountTotalWorkService } from '../../services/count-total-work.service';
 import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 
@@ -35,6 +35,11 @@ export class TableComponent implements OnInit {
 
   formArr!: FormArray;
 
+  customPatterns = {
+    o: { pattern: /^[1-4]$/ },
+    f: { pattern: /^[1-8]$/ }
+  };
+
   constructor(
     private fb: FormBuilder,
     private countTotalWorkService: CountTotalWorkService
@@ -50,7 +55,7 @@ export class TableComponent implements OnInit {
     const formArray = this.dataSource.map(
       row => this.fb.group(
         Object.entries(row).reduce((prev, curr) => {
-          return {...prev, [curr[0]]: this.fb.control(curr[1]) }  
+          return {...prev, [curr[0]]: this.fb.control(curr[1], [Validators.required]) }  
         }, {})
       )
     );
