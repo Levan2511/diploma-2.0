@@ -5,6 +5,8 @@ import { ViewEpComponent } from './components/view-ep/view-ep.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TotalTermTableComponent } from './components/total-term-table/total-term-table.component';
+import { GetFormGroupPipe } from '../shared/pipes/get-form-group.pipe';
+import { NgxMaskModule } from 'ngx-mask';
 import { TableComponent } from './components/table/table.component';
 
 
@@ -13,7 +15,8 @@ import { TableComponent } from './components/table/table.component';
   declarations: [
     ViewEpComponent,
     TotalTermTableComponent,
-    TableComponent
+    TableComponent,
+    GetFormGroupPipe
   ],
   imports: [
     CommonModule,
@@ -21,6 +24,7 @@ import { TableComponent } from './components/table/table.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   exports: [
     ViewEpComponent,

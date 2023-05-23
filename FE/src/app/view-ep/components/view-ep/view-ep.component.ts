@@ -1,6 +1,5 @@
-import { columnHeadersMapForExcel } from '../table/table-data';
+
 import { ChangeDetectionStrategy, Component, ChangeDetectorRef, Inject } from '@angular/core';
-import { tableColumns } from 'src/app/view-ep/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, filter, switchMap, tap, map } from 'rxjs';
@@ -8,6 +7,7 @@ import { isEmpty, isUndefined } from 'lodash';
 import { ExcelService } from 'src/app/core/services/excel.service';
 import { EXPANSION_PANEL_ANIMATION_TIMING, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanelDefaultOptions } from '@angular/material/expansion';
 import { EducationPlan, SubjectInfo } from '@common/ep-models';
+import { columnHeadersMapForExcel, tableColumns } from '../table/table-data';
 
 @Component({
   selector: 'lk-view-ep',

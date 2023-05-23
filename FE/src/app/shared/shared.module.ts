@@ -3,7 +3,6 @@ import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GetFormGroupPipe } from './pipes/get-form-group.pipe';
 import { SearchEpComponent } from './components/search-ep/search-ep.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule } from 'ngx-mask';
@@ -11,7 +10,6 @@ import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     LoginComponent,
-    GetFormGroupPipe,
     SearchEpComponent
   ],
   imports: [
