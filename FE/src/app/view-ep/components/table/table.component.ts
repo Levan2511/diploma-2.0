@@ -66,7 +66,11 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   showAddSubjectDialog() {
-    this.dialog.open(AddSubjectDialogComponent)
+    this.dialog.open(AddSubjectDialogComponent, {
+      width: '80vw',
+      maxWidth: '500px',
+      height: '90vh',
+    })
   }
 
   private initForm(): FormArray {

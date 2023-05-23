@@ -10,6 +10,11 @@ import { SubjectInfo } from '@common/ep-models';
 })
 export class AddSubjectDialogComponent implements OnInit {
   form: FormGroup = this.initAddSubjectForm();
+  
+  customPatterns = {
+    o: { pattern: /^[1-4]$/ },
+    f: { pattern: /^[1-8]$/ }
+  };
 
   constructor(
     private fb: FormBuilder
@@ -21,7 +26,7 @@ export class AddSubjectDialogComponent implements OnInit {
 
   private initAddSubjectForm(): FormGroup {
     const controlNames = [
-      'RGR', 'credits', 'cycle', 'department', 'exam', 'labs', 'labs1', 'labs2', , 'lectures1', 'lectures2',
+      'RGR', 'credits', 'cycle', 'department', 'exam', 'labs1', 'labs2', 'lectures1', 'lectures2',
       'name', 'practical1', 'practical2', 'term'
     ] as Partial<keyof SubjectInfo>[];
 

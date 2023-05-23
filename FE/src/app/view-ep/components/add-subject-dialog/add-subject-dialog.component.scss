@@ -1,0 +1,11 @@
+:host {
+  ::ng-deep {
+    .mat-form-field {
+      margin: 0 15px;
+    }
+  }
+
+  mat-radio-button {
+    margin-right: 10px;
+  }
+}
