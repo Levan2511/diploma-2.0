@@ -25,6 +25,17 @@ export interface SubjectInfo {
   RGR: 'RGR' | 'RR' | 'RK' | 'KR' | 'KP';
 }
 
+export interface TermTotal extends Omit<SubjectInfo, 'cycle' | 'term' | 'name' | 'department' | 'exam' | 'RGR'> {
+  exam: number;
+  test: number;
+  test2: number;
+  RGR: number;
+  RR: number;
+  RK: number;
+  KR: number;
+  KP: number;
+}
+
 export type TermPlan = SubjectInfo[];
 
 export type EducationPlan = TermPlan[];
@@ -32,4 +43,8 @@ export type EducationPlan = TermPlan[];
 export interface DisplayColumn {
   name: string;
   key: keyof SubjectInfo
+}
+export interface DisplayColumnExtended {
+  name: string;
+  key: keyof TermTotal
 }
