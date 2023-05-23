@@ -124,6 +124,10 @@
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
 
+<div class="add-subject-wrapper">
+  <button mat-flat-button color="primary" (click)="showAddSubjectDialog()">Додати предмет</button>
+</div>
+
 
 <ng-template #examTemplate let-row let-rowIndex="rowIndex">
   <form [formGroup]="formArr | getFormGroup: rowIndex">

@@ -4,6 +4,8 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { CountTotalWorkService } from '../../../shared/services/count-total-work.service';
 import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
+import { MatDialog } from '@angular/material/dialog';
+import { AddSubjectDialogComponent } from '../add-subject-dialog/add-subject-dialog.component';
 
 @Component({
   selector: 'lk-table',
@@ -48,7 +50,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private countTotalWorkService: CountTotalWorkService
+    private countTotalWorkService: CountTotalWorkService,
+    public dialog: MatDialog
   ) {}
 
   ngOnChanges() {
@@ -60,6 +63,10 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.formArr = this.initForm();
     this.columnsToDisplayWithExpand = [...this.displayedColumns.map(col => col.key), 'edit', 'delete', 'expand'];
+  }
+
+  showAddSubjectDialog() {
+    this.dialog.open(AddSubjectDialogComponent)
   }
 
   private initForm(): FormArray {

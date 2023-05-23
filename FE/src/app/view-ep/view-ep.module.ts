@@ -8,6 +8,7 @@ import { TotalTermTableComponent } from './components/total-term-table/total-ter
 import { GetFormGroupPipe } from '../shared/pipes/get-form-group.pipe';
 import { NgxMaskModule } from 'ngx-mask';
 import { TableComponent } from './components/table/table.component';
+import { AddSubjectDialogComponent } from './components/add-subject-dialog/add-subject-dialog.component';
 
 
 
@@ -16,7 +17,8 @@ import { TableComponent } from './components/table/table.component';
     ViewEpComponent,
     TotalTermTableComponent,
     TableComponent,
-    GetFormGroupPipe
+    GetFormGroupPipe,
+    AddSubjectDialogComponent
   ],
   imports: [
     CommonModule,
