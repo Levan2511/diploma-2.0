@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { SubjectInfo } from '@common/ep-models';
 
 @Component({
@@ -17,12 +18,16 @@ export class AddSubjectDialogComponent implements OnInit {
   };
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<AddSubjectDialogComponent>
   ) { }
 
   ngOnInit(): void {
   }
 
+  addSubject() {
+    this.dialogRef.close(this.form.value);
+  }
 
   private initAddSubjectForm(): FormGroup {
     const controlNames = [
@@ -31,7 +36,7 @@ export class AddSubjectDialogComponent implements OnInit {
     ] as Partial<keyof SubjectInfo>[];
 
     const controls = controlNames.reduce((prev, curr) => {
-      return {...prev, [curr]: this.fb.control(null)}
+      return {...prev, [curr]: this.fb.control(null, [Validators.required])}
     }, {});
 
     return this.fb.group(controls);

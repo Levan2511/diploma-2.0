@@ -1,113 +1,121 @@
-<form class="d-flex flex-wrap align-items-center justify-content-center" [formGroup]="form">
-  <!-- Cycle -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Цикл</mat-label>
-    <input [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="o.f" formControlName="cycle" matInput placeholder="1.1">
-  </mat-form-field>
+<mat-card-title>Додати предмет</mat-card-title>
 
-  <!-- Term -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Семестр</mat-label>
-    <input type="number" min="0" max="8" formControlName="term" matInput placeholder="1">
-  </mat-form-field>
+<mat-dialog-content>
+  <form class="d-flex flex-wrap align-items-center justify-content-center" [formGroup]="form">
+    <!-- Cycle -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Цикл</mat-label>
+      <input [patterns]="customPatterns" [dropSpecialCharacters]="false" mask="o.f" formControlName="cycle" matInput placeholder="1.1">
+    </mat-form-field>
+  
+    <!-- Term -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Семестр</mat-label>
+      <input type="number" min="0" max="8" formControlName="term" matInput placeholder="1">
+    </mat-form-field>
+  
+    <!-- Department -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Кафедра</mat-label>
+      <input mask="0999" formControlName="department" matInput placeholder="503">
+    </mat-form-field>
+  
+    <!-- Lectures -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Лекції 1 1/2</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Лекції 2 1/2</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <!-- Labs -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Лабораторні 1 1/2</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Лабораторні 2 1/2</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="labs2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <!-- Practical -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Пр. 1 (2/2)</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Пр. 2 (1/2)</mat-label>
+      <input [min]="0" [step]="0.5" formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
+    </mat-form-field>
+  
+    <!-- Credits -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Кредити</mat-label>
+      <input formControlName="credits" type="number" [min]="0.5" [max]="30" [step]="0.5" matInput placeholder="1">
+    </mat-form-field>
+  
+    <!-- Term -->
+    <mat-form-field class="w-100">
+      <mat-label>Навчальна дисципліна</mat-label>
+      <input formControlName="name" matInput placeholder="Комп'ютерна інженерія">
+    </mat-form-field>
+  
+    <div class="w-100 d-flex flex-column flex-wrap">
+      <!-- Exam -->
+      <mat-card class="mb-2">
+        <mat-card-subtitle>Тип екзамену</mat-card-subtitle>
+        <mat-card-content>
+          <mat-radio-group
+            class="radio-group d-flex"
+            formControlName="exam">
+            <mat-radio-button class="radio-button" value="exam">
+              Іспити
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="test">
+              Заліки
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="test2">
+              Диф. Заліки
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+  
+      <!-- RGR -->
+      <mat-card class="mb-2">
+        <mat-card-subtitle>Тип роботи</mat-card-subtitle>
+        <mat-card-content>
+          <mat-radio-group
+            class="radio-group d-flex"
+            formControlName="RGR">
+            <mat-radio-button class="radio-button" value="RGR">
+              РГР
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="RR">
+              РР
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="KP">
+              КП
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="KR">
+              КР
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="RK">
+              РК
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </form>
+</mat-dialog-content>
 
-  <!-- Department -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Кафедра</mat-label>
-    <input mask="0999" formControlName="department" matInput placeholder="503">
-  </mat-form-field>
-
-  <!-- Lectures -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Лекції 1 1/2</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="lectures1" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Лекції 2 1/2</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="lectures2" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <!-- Labs -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Лабораторні 1 1/2</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="labs1" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Лабораторні 2 1/2</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="labs2" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <!-- Practical -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Пр. 1 (2/2)</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="practical1" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Пр. 2 (1/2)</mat-label>
-    <input [min]="0" [step]="0.5" formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
-  </mat-form-field>
-
-  <!-- Credits -->
-  <mat-form-field class="example-full-width">
-    <mat-label>Кредити</mat-label>
-    <input formControlName="credits" type="number" [min]="0.5" [max]="30" [step]="0.5" matInput placeholder="1">
-  </mat-form-field>
-
-  <!-- Term -->
-  <mat-form-field class="w-100">
-    <mat-label>Навчальна дисципліна</mat-label>
-    <input formControlName="name" matInput placeholder="Комп'ютерна інженерія">
-  </mat-form-field>
-
-  <div class="w-100 d-flex flex-column flex-wrap">
-    <!-- Exam -->
-    <mat-card class="mb-2">
-      <mat-card-subtitle>Тип екзамену</mat-card-subtitle>
-      <mat-card-content>
-        <mat-radio-group
-          class="radio-group d-flex"
-          formControlName="exam">
-          <mat-radio-button class="radio-button" value="exam">
-            Іспити
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="test">
-            Заліки
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="test2">
-            Диф. Заліки
-          </mat-radio-button>
-        </mat-radio-group>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- RGR -->
-    <mat-card class="mb-2">
-      <mat-card-subtitle>Тип роботи</mat-card-subtitle>
-      <mat-card-content>
-        <mat-radio-group
-          class="radio-group d-flex"
-          formControlName="RGR">
-          <mat-radio-button class="radio-button" value="RGR">
-            РГР
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="RR">
-            РР
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="KP">
-            КП
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="KR">
-            КР
-          </mat-radio-button>
-          <mat-radio-button class="radio-button" value="RK">
-            РК
-          </mat-radio-button>
-        </mat-radio-group>
-      </mat-card-content>
-    </mat-card>
-  </div>
- 
-</form>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="addSubject()" cdkFocusInitial>Add</button>
+</mat-dialog-actions>
