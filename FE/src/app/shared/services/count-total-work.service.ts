@@ -4,8 +4,6 @@ import { TermPlan } from '@common/ep-models';
 import { TermTotal } from '@common/ep-models';
 import { getTotalTerm } from '@common/utils';
 
-const COEF = 8;
-
 @Injectable({
   providedIn: 'root'
 })

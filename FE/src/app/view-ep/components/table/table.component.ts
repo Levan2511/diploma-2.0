@@ -22,6 +22,10 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() termId!: string;
   @Input() set dataSource(value: TermPlan) {
     this._dataSource = value;
+
+    if (this.termId) {
+      this.setTotalTermData(this.termId, value);
+    }
   };
 
   get dataSource(): TermPlan {
