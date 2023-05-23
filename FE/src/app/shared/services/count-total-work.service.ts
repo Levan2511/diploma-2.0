@@ -1,6 +1,8 @@
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, combineLatest, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TermPlan } from '@common/ep-models';
+import { TermTotal } from '@common/ep-models';
+import { getTotalTerm } from '@common/utils';
 
 const COEF = 8;
 
@@ -8,39 +10,17 @@ const COEF = 8;
   providedIn: 'root'
 })
 export class CountTotalWorkService {
-  private data$$ = new BehaviorSubject<TermPlan>([]);
+  private totalWorkMap$$ = new Subject<Record<string, TermPlan>>();
 
   constructor() { }
 
-  setData(val: TermPlan) {
-    this.data$$.next(val);
+  setData(val: Record<string, TermPlan>) {
+    this.totalWorkMap$$.next(val);
   }
 
-  getTotalSubjectLectures$(index: number): Observable<number> {
-    return this.data$$.asObservable().pipe(
-      map(data => (data[index].lectures1 + data[index].lectures2) * COEF)
+  getTotalWork$(termId: string): Observable<TermTotal> {
+    return this.totalWorkMap$$.asObservable().pipe(
+      map(data => getTotalTerm(data[termId]))
     );
-  }
-
-  getTotalSubjectLabs$(index: number): Observable<number> {
-    return this.data$$.asObservable().pipe(
-      map(data => (data[index].labs1 + data[index].labs2) * COEF)
-    );
-  }
-
-  getTotalSubjectPractics$(index: number): Observable<number> {
-    return this.data$$.asObservable().pipe(
-      map(data => (data[index].practical1 + data[index].practical2) * COEF)
-    );
-  }
-
-  getTotalSubjectClasswork$(index: number): Observable<number> {
-    return combineLatest([
-      this.getTotalSubjectLabs$(index),
-      this.getTotalSubjectLectures$(index),
-      this.getTotalSubjectPractics$(index)
-    ]).pipe(
-      map(([labs, lectures, practics]) => labs + lectures + practics)
-    )
   }
 }

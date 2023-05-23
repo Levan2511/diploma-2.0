@@ -67,44 +67,6 @@ export class TableComponent implements OnInit {
     return formArrayResult;
   }
 
-  // private listenToFormChange(formArr: FormArray) {
-  //   const COEF = 8;
-
-  //   formArr.controls.forEach((v: AbstractControl, i) => {
-  //     const formGroup = v as FormGroup;
-  //     const practicalControl = formGroup.get('practical');
-  //     const lecturesControl = formGroup.get('lectures');
-  //     const labsControl = formGroup.get('labs');
-
-  //     formGroup.get('practical1')?.valueChanges.subscribe(val => {
-  //       practicalControl?.setValue((val + formGroup.value.practical2) * COEF);
-  //     });
-
-  //     formGroup.get('practical2')?.valueChanges.subscribe(val => {
-  //       practicalControl?.setValue((val + formGroup.value.practical1) * COEF);
-  //     });
-
-  //     formGroup.get('lectures1')?.valueChanges.subscribe(val => {
-  //       lecturesControl?.setValue((val + formGroup.value.lectures2) * COEF);
-  //     });
-
-  //     formGroup.get('lectures2')?.valueChanges.subscribe(val => {
-  //       lecturesControl?.setValue((val + formGroup.value.lectures1) * COEF);
-  //     });
-
-  //     formGroup.get('labs1')?.valueChanges.subscribe(val => {
-  //       labsControl?.setValue((val + formGroup.value.labs2) * COEF);
-  //     });
-
-  //     formGroup.get('labs2')?.valueChanges.subscribe(val => {
-  //       labsControl?.setValue((val + formGroup.value.labs1) * COEF);
-  //     });
-
-
-  //     // console.table(formGroup.value);
-  //   })
-  // }
-
   onEdit(el: SubjectInfo, rowIndex: number): void {
     if (!this.isEditMode) {
       this.switchEditMode(true, rowIndex, el);
