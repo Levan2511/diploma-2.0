@@ -9,9 +9,10 @@
 </mat-card>
 
 <ng-container *ngIf="!(queryParamEmpty$ | async) && (educationPlan$ | async) as ep; else noData">
-  <button mat-flat-button (click)="saveExcel(ep)">Зберегти Excel</button>
-
-  <button mat-flat-button color="primary" (click)="null">Зберегти зміни</button>
+  <div class="d-flex justify-content-end pb-4">
+    <button mat-flat-button (click)="saveExcel(ep)">Зберегти Excel</button>
+    <button mat-flat-button color="primary" (click)="null">Зберегти зміни</button>
+  </div>
 
   <mat-accordion displayMode="flat" [multi]="true">
     <mat-expansion-panel *ngFor="let term of ep; let i = index">

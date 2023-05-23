@@ -123,7 +123,7 @@ export function getTotalTermRGR(data: TermPlan): Record<'KP' | 'KR' | 'RGR' | 'R
       case 'RK':
         return { ...prev, RK: prev.RK + 1 };
       case 'RR':
-        return { ...prev, RR: ++prev.RR + 1 };
+        return { ...prev, RR: prev.RR + 1 };
         
     }
       
