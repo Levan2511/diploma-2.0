@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { state, style, trigger } from '@angular/animations';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountTotalWorkService } from '../../../shared/services/count-total-work.service';
@@ -17,8 +17,9 @@ import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, ge
     ]),
   ],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
   @Input() displayedColumns!: DisplayColumn[];
+  @Input() termId!: string;
   @Input() set dataSource(value: TermPlan) {
     this._dataSource = value;
   };
@@ -45,6 +46,12 @@ export class TableComponent implements OnInit {
     private fb: FormBuilder,
     private countTotalWorkService: CountTotalWorkService
   ) {}
+
+  ngOnChanges() {
+    if (this.dataSource && this.termId) {
+      this.setTotalTermData(this.termId, this.dataSource);
+    }
+  }
  
   ngOnInit() {
     this.formArr = this.initForm();
@@ -142,5 +149,9 @@ export class TableComponent implements OnInit {
     this.formArr.controls.filter((_, i) => i !== rowIndex).forEach(control => {
       control.disable();
     })
+  }
+
+  private setTotalTermData(termId: string, plan: TermPlan) {
+    this.countTotalWorkService.setData({ [termId]: plan });
   }
 }

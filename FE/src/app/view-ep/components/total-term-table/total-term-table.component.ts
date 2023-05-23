@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { DisplayColumnExtended, TermTotal } from '@common/ep-models';
 import { columnHeadersMapForExcel } from '../table/table-data';
+import { CountTotalWorkService } from 'src/app/shared/services/count-total-work.service';
 
 @Component({
   selector: 'lk-total-term-table',
@@ -9,6 +11,7 @@ import { columnHeadersMapForExcel } from '../table/table-data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotalTermTableComponent implements OnInit {
+  @Input() termId!: string;
   
   displayedColumns: DisplayColumnExtended[] = [
     {
@@ -99,36 +102,18 @@ export class TotalTermTableComponent implements OnInit {
 
   displayColumnStrings!: string[];
 
-  dataSource: TermTotal[] = [
-    {
-      exam: 1,
-      test: 1,
-      test2: 1,
-      RGR: 1,
-      RR: 1,
-      RK: 1,
-      KR: 1,
-      KP: 1,
-      lectures: 1,
-      lectures1: 1,
-      lectures2: 1,
-      labs: 1,
-      labs1: 1,
-      labs2: 1,
-      practical: 1,
-      practical1: 1,
-      practical2: 1,
-      classHours: 1,
-      selfWork: 1,
-      totalHours: 1,
-      credits: 1,
-    }
-  ];
+  dataSource$!: Observable<TermTotal[]>;;
 
-  constructor() { }
+  constructor(
+    private countTotalWorkService: CountTotalWorkService
+  ) { }
 
   ngOnInit(): void {
     this.displayColumnStrings = [...this.displayedColumns.map(col => col.key)];
+
+    this.dataSource$ = this.countTotalWorkService.getTotalWork$(this.termId).pipe(
+      map(value => [value])
+    );
   }
 
 }

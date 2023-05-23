@@ -24,6 +24,7 @@
       <lk-table
         [dataSource]="term"
         [displayedColumns]="displayedColumns"
+        [termId]="i + ''"
       ></lk-table>
 
       <mat-card>
@@ -31,7 +32,9 @@
           <mat-card-title>Сума</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <lk-total-term-table></lk-total-term-table>
+          <lk-total-term-table
+            [termId]="i + ''">
+          </lk-total-term-table>
         </mat-card-content>
       </mat-card>
     </mat-expansion-panel>
