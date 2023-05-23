@@ -136,7 +136,7 @@ export class TableComponent implements OnInit {
     this.switchEditMode(false, rowIndex);
 
     const formGroup = this.formArr.at(rowIndex) as FormGroup;
-    const subject = formGroup.value;
+    const subject = formGroup.value as SubjectInfo;
 
     const newValue: Partial<SubjectInfo> = {
       lectures: getTotalSubjectLectures(subject),

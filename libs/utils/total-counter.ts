@@ -12,7 +12,7 @@ export function getTotalSubjectLabs(data: SubjectInfo): number {
 }
 
 export function getTotalSubjectPractics(data: SubjectInfo): number {
-  return (data.lectures1 + data.lectures2) * COEF;
+  return (data.practical1 + data.practical2) * COEF;
 }
 
 export function getTotalSubjectClassWork(data: SubjectInfo): number {
