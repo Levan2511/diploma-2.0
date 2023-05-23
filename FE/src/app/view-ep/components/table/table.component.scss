@@ -76,6 +76,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 :host {
+  overflow-x: auto;
+  display: block;
+
   ::ng-deep {
     .mat-form-field-infix {
       width: unset;

@@ -20,6 +20,12 @@
       <input mask="0999" formControlName="department" matInput placeholder="503">
     </mat-form-field>
   
+    <!-- Credits -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Кредити</mat-label>
+      <input formControlName="credits" type="number" [min]="0.5" [max]="30" [step]="0.5" matInput placeholder="1">
+    </mat-form-field>
+  
     <!-- Lectures -->
     <mat-form-field class="example-full-width">
       <mat-label>Лекції 1 1/2</mat-label>
@@ -51,12 +57,6 @@
     <mat-form-field class="example-full-width">
       <mat-label>Пр. 2 (1/2)</mat-label>
       <input [min]="0" [step]="0.5" formControlName="practical2" type="number" [min]="0" matInput placeholder="1">
-    </mat-form-field>
-  
-    <!-- Credits -->
-    <mat-form-field class="example-full-width">
-      <mat-label>Кредити</mat-label>
-      <input formControlName="credits" type="number" [min]="0.5" [max]="30" [step]="0.5" matInput placeholder="1">
     </mat-form-field>
   
     <!-- Term -->
@@ -117,5 +117,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="addSubject()" cdkFocusInitial>Add</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="addSubject()" cdkFocusInitial>Add</button>
 </mat-dialog-actions>

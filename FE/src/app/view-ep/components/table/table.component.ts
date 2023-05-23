@@ -6,6 +6,7 @@ import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
 import { MatDialog } from '@angular/material/dialog';
 import { AddSubjectDialogComponent } from '../add-subject-dialog/add-subject-dialog.component';
+import { filter, first } from 'rxjs';
 
 @Component({
   selector: 'lk-table',
@@ -71,7 +72,26 @@ export class TableComponent implements OnInit, OnChanges {
       maxWidth: '500px',
     });
 
-    dialog.afterClosed().subscribe(v => console.log('closed with::', v));
+    dialog.afterClosed().pipe(
+      filter(Boolean)
+    ).subscribe(subject => this.insertSubject(subject));
+  }
+
+  private insertSubject(subject: SubjectInfo) {
+    const newSubject = {
+      ...subject,
+      lectures: getTotalSubjectLectures(subject),
+      practical: getTotalSubjectPractics(subject),
+      labs: getTotalSubjectLabs(subject),
+      selfWork: getTotalSubjectSelfWork(subject),
+      classHours: getTotalSubjectClassWork(subject),
+      totalHours: getTotalSubjectHours(subject)
+    };
+    const tmpArr = [...this.dataSource];
+    tmpArr.push(newSubject);
+
+    this.dataSource = tmpArr;
+    this.formArr = this.initForm();
   }
 
   private initForm(): FormArray {
