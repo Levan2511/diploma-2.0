@@ -1,3 +1,4 @@
+require('module-alias/register');
 import { Request, Response } from "express";
 
 const express = require('express');
