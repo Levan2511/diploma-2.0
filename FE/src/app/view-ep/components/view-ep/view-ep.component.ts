@@ -1,6 +1,6 @@
-import { columnHeadersMapForExcel } from './../../../shared/components/table/table-data';
+import { columnHeadersMapForExcel } from '../table/table-data';
 import { ChangeDetectionStrategy, Component, ChangeDetectorRef, Inject } from '@angular/core';
-import { tableColumns } from 'src/app/shared/components/table/table-data';
+import { tableColumns } from 'src/app/view-ep/components/table/table-data';
 import { ViewEpService } from '../../services/view-ep.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, filter, switchMap, tap, map } from 'rxjs';

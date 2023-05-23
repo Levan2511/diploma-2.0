@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { state, style, trigger } from '@angular/animations';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CountTotalWorkService } from '../../services/count-total-work.service';
+import { CountTotalWorkService } from '../../../shared/services/count-total-work.service';
 import { DisplayColumn, SubjectInfo, TermPlan } from '@common/ep-models';
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
 
