@@ -25,7 +25,14 @@
         [dataSource]="term"
         [displayedColumns]="displayedColumns"
       ></lk-table>
-      <lk-total-term-table></lk-total-term-table>
+      <mat-card>
+        <mat-card-header class="justify-content-center">
+          <mat-card-title>Сума</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <lk-total-term-table></lk-total-term-table>
+        </mat-card-content>
+      </mat-card>
     </mat-expansion-panel>
   </mat-accordion>
 </ng-container>
