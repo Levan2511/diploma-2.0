@@ -10,8 +10,8 @@
 
 <ng-container *ngIf="!(queryParamEmpty$ | async) && (educationPlan$ | async) as ep; else noData">
   <div class="d-flex justify-content-end pb-4">
-    <button mat-flat-button (click)="saveExcel(ep)">Зберегти Excel</button>
-    <button mat-flat-button color="primary" (click)="null">Зберегти зміни</button>
+    <button mat-stroked-button class="save-excel-btn" (click)="saveExcel(ep)">Зберегти Excel</button>
+    <button mat-flat-button color="primary" [disabled]="!changedTerms.length" (click)="saveChanges(ep)">Зберегти зміни</button>
   </div>
 
   <mat-accordion displayMode="flat" [multi]="true">
@@ -25,7 +25,8 @@
       <lk-table
         [dataSource]="term"
         [displayedColumns]="displayedColumns"
-        [termId]="i + ''"
+        [termId]="i"
+        (dataChangedEvent)="termDataChaged($event)"
       ></lk-table>
 
       <mat-card>
@@ -34,7 +35,7 @@
         </mat-card-header>
         <mat-card-content>
           <lk-total-term-table
-            [termId]="i + ''">
+            [termId]="i">
           </lk-total-term-table>
         </mat-card-content>
       </mat-card>

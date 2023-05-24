@@ -1,6 +1,7 @@
 import { EducationPlan } from "@common/ep-models";
 import { Database, EducationPlanIds, User } from "../models/db";
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
+import { writeFile } from "fs/promises";
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -46,5 +47,12 @@ export class DatabaseService {
         }
       })
     });
+  }
+
+  async saveEducationPlan(plan: EducationPlan, planId: string): Promise<void> {
+    const db = await this.getData();
+    const newData = {...db, educationPlans: {...db.educationPlans, [planId]: plan }} as Database;
+
+    return writeFile(this.pathToDB, JSON.stringify(newData), 'utf-8');
   }
 }

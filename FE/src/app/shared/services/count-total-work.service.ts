@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subject, combineLatest, map, filter, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, filter, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TermPlan } from '@common/ep-models';
 import { TermTotal } from '@common/ep-models';
@@ -13,6 +13,7 @@ export class CountTotalWorkService {
   constructor() { }
 
   setData(val: Record<string, TermPlan>) {
+    console.log('setData', val);
     const prevData = this.totalWorkMap$$.value;
     this.totalWorkMap$$.next({
       ...prevData,
@@ -20,7 +21,7 @@ export class CountTotalWorkService {
     });
   }
 
-  getTotalWork$(termId: string): Observable<TermTotal> {
+  getTotalWork$(termId: number): Observable<TermTotal> {
     return this.totalWorkMap$$.asObservable().pipe(
       filter(data => !!data[termId]),
       map(data => getTotalTerm(data[termId]))

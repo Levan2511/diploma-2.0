@@ -11,7 +11,7 @@ import { CountTotalWorkService } from 'src/app/shared/services/count-total-work.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TotalTermTableComponent implements OnInit {
-  @Input() termId!: string;
+  @Input() termId!: number;
   
   displayedColumns: DisplayColumnExtended[] = [
     {

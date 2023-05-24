@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { state, style, trigger } from '@angular/animations';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountTotalWorkService } from '../../../shared/services/count-total-work.service';
@@ -7,6 +7,8 @@ import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, ge
 import { MatDialog } from '@angular/material/dialog';
 import { AddSubjectDialogComponent } from '../add-subject-dialog/add-subject-dialog.component';
 import { filter, first } from 'rxjs';
+import { TermChagedEvent } from '../../models/ep';
+import { isInteger } from 'lodash';
 
 @Component({
   selector: 'lk-table',
@@ -21,12 +23,14 @@ import { filter, first } from 'rxjs';
   ],
 })
 export class TableComponent implements OnInit, OnChanges {
+  @Output() dataChangedEvent = new EventEmitter<TermChagedEvent>();
+
   @Input() displayedColumns!: DisplayColumn[];
-  @Input() termId!: string;
+  @Input() termId!: number;
   @Input() set dataSource(value: TermPlan) {
     this._dataSource = value;
 
-    if (this.termId) {
+    if (isInteger(this.termId)) {
       this.setTotalTermData(this.termId, value);
     }
   };
@@ -56,7 +60,7 @@ export class TableComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges() {
-    if (this.dataSource && this.termId) {
+    if (this.dataSource && isInteger(this.termId)) {
       this.setTotalTermData(this.termId, this.dataSource);
     }
   }
@@ -92,6 +96,7 @@ export class TableComponent implements OnInit, OnChanges {
 
     this.dataSource = tmpArr;
     this.formArr = this.initForm();
+    this.dataChangedEvent.emit({ index: this.termId, data: this.dataSource });
   }
 
   private initForm(): FormArray {
@@ -155,6 +160,7 @@ export class TableComponent implements OnInit, OnChanges {
     this.formArr.at(rowIndex).patchValue(newValue);
 
     this.dataSource = this.formArr.value;
+    this.dataChangedEvent.emit({ index: this.termId, data: this.dataSource });
   }
 
   onCancel(rowIndex: number) {
@@ -167,6 +173,7 @@ export class TableComponent implements OnInit, OnChanges {
     tmpArr.splice(rowIndex, 1)
     this.dataSource = tmpArr;
     this.formArr = this.initForm();
+    this.dataChangedEvent.emit({ index: this.termId, data: this.dataSource });
   }
 
   onRowClick(el: SubjectInfo) {
@@ -187,7 +194,7 @@ export class TableComponent implements OnInit, OnChanges {
     })
   }
 
-  private setTotalTermData(termId: string, plan: TermPlan) {
+  private setTotalTermData(termId: number, plan: TermPlan) {
     this.countTotalWorkService.setData({ [termId]: plan });
   }
 }

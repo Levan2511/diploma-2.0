@@ -20,7 +20,7 @@ const authRouter = require('./api/login');
 app.use('/login', authRouter);
 
 const epRouter = require('./api/education-plan');
-app.use('/ep-ids', epRouter);
+app.use('/ep', epRouter);
 
 const server = http.createServer(app);
 
