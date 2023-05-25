@@ -1,22 +1,20 @@
 import { EducationPlan } from "@common/ep-models";
 import { Database, EducationPlanIds, User } from "../models/db";
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
-import { writeFile } from "fs/promises";
-
-const fs = require('fs').promises;
-const path = require('path');
+import { readFile, writeFile } from "fs/promises";
+import { resolve } from "path";
 
 export class DatabaseService {
   DB!: Database;
 
-  pathToDB = path.resolve('./DB/db.json');
+  pathToDB = resolve('./DB/db.json');
 
   constructor() {
     this.getData().then((db) => this.DB = db);
   }
 
   async getData(): Promise<Database> {
-    return JSON.parse(await fs.readFile(this.pathToDB))
+    return JSON.parse(await readFile(this.pathToDB, { encoding: 'utf-8' }))
   }
 
   async getUsers(): Promise<User[]> {

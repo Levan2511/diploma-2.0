@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node src/server.ts",
+    "start": "node --es-module-specifier-resolution=node build/BE/src/server.js",
+    "start:prod": "npm run build && node --es-module-specifier-resolution=node build/BE/src/server.js",
+    "build": "rimraf ./build && npx tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,11 +17,16 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
+    "@types/module-alias": "^2.0.1",
     "@types/node": "^20.2.1",
+    "rimraf": "^5.0.1",
+    "tsc-alias": "^1.8.6",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
   "_moduleAliases": {
-    "@common/utils": "../libs/utils/total-counter.ts",
-    "@common/ep-models": "../libs/models/education-plan.ts"
-  }
+    "@common/utils": "../libs/utils/total-counter",
+    "@common/ep-models": "../libs/models/education-plan"
+  },
+  "type": "module"
 }
