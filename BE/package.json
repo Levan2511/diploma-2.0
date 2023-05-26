@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node ./src/server.js",
+    "start": "node --es-module-specifier-resolution=node build/BE/src/server.js",
     "start:prod": "npm run build && node --es-module-specifier-resolution=node build/BE/src/server.js",
     "build": "npm install && rimraf ./build && npx tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
