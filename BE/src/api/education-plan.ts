@@ -7,15 +7,12 @@ const epRouter = Router();
 const dbService = new DatabaseService();
 
 epRouter.get('/ids', async (req: Request, res: Response) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     const educationPlanIds = await dbService.getEducationPlanIds();
 
     return res.status(200).json(educationPlanIds);
 });
 
 epRouter.get('/ep-by-id', async (req: Request, res: Response) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     const epId = req.query['epId'] as string;
 
     const educationPlan = await dbService.getEducationPlanById(epId);
@@ -30,8 +27,6 @@ epRouter.get('/ep-by-id', async (req: Request, res: Response) => {
 });
 
 epRouter.post('/save', async (req: Request, res: Response) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     const epId = req.query['epId'] as string;
     const plan = req.body as EducationPlan;
 

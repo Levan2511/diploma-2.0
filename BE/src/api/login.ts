@@ -6,8 +6,6 @@ const authRouter = express.Router();
 const loginService = new LoginService();
 
 authRouter.post('/', async (req: Request, res: Response) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     const { uid, password } = req.body;
 
     const isUserExists = await loginService.isUserExists(uid, password);
