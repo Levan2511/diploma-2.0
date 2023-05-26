@@ -31,6 +31,10 @@ export class ViewEpService {
     }, true, false)
   }
 
+  cancelRemoval() {
+    return this.http.get(`${environment.apiUrl}/ep/cancel-removal`, {}, true, false);
+  }
+
   saveEducationPlan(planId: string, plan: EducationPlan) {
     return this.http.post(`${environment.apiUrl}/ep/save`, plan, {
       params: {

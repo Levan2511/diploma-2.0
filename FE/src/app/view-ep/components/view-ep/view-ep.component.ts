@@ -10,6 +10,8 @@ import { EducationPlan, SubjectInfo } from '@common/ep-models';
 import { columnHeadersMapForExcel, tableColumns } from '../table/table-data';
 import { TermChagedEvent } from '../../models/ep';
 
+const CANCEL_REMOVAL_TIME = 5000;
+
 @Component({
   selector: 'lk-view-ep',
   templateUrl: './view-ep.component.html',
@@ -25,6 +27,7 @@ import { TermChagedEvent } from '../../models/ep';
 })
 export class ViewEpComponent {
   searchCompleted = false;
+  cancelRemovalMode = false;
 
   displayedColumns = tableColumns;
   educationPlan$: Observable<EducationPlan | null> = this.activatedRoute.queryParams.pipe(
@@ -78,7 +81,17 @@ export class ViewEpComponent {
   deleteEp() {
     const epId = this.activatedRoute.snapshot.queryParamMap.get('epId') || '';
 
-    this.viewEpService.deleteEducationPlanById(epId).subscribe();
+    this.viewEpService.deleteEducationPlanById(epId).subscribe(() => {
+      this.cancelRemovalMode = true
+      this.cdr.markForCheck();
+    });
+  }
+
+  cancelRemoval() {
+    this.viewEpService.cancelRemoval().subscribe(() => {
+      this.cancelRemovalMode = false;
+      this.cdr.markForCheck();
+    });
   }
 
   saveChanges(ep: EducationPlan) {

@@ -68,8 +68,8 @@ export class DatabaseService {
     const ep = await this.getEducationPlanById(id);
     this.deletedEpCopy = { [id]: ep };
     
-    // await this.writeDB(db);
-    
+    await this.writeDB(db);
+  
     this.deleteTimer();
   }
 

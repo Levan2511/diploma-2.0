@@ -31,7 +31,7 @@ export class HttpService {
     }
   
     return this.http.get<T>(url, opts).pipe(
-      tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
+      tap((val: any) => showToastr && this.toastr.success(val?.message ?? this.toastrConfig.successMsg)),
       finalize(() => this.progressBarService.hide()),
       catchError((err) => {
         if (showToastr) {

@@ -1,0 +1,11 @@
+:host {
+    ::ng-deep {
+        .mat-progress-bar {
+            height: 10px;
+        }
+    }
+
+    .accept-btn {
+        margin-right: 20px;
+    }
+}

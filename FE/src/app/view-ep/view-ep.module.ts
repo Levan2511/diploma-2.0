@@ -9,6 +9,7 @@ import { GetFormGroupPipe } from '../shared/pipes/get-form-group.pipe';
 import { NgxMaskModule } from 'ngx-mask';
 import { TableComponent } from './components/table/table.component';
 import { AddSubjectDialogComponent } from './components/add-subject-dialog/add-subject-dialog.component';
+import { CancelRemovalBarComponent } from './components/cancel-removal-bar/cancel-removal-bar.component';
 
 
 
@@ -18,7 +19,8 @@ import { AddSubjectDialogComponent } from './components/add-subject-dialog/add-s
     TotalTermTableComponent,
     TableComponent,
     GetFormGroupPipe,
-    AddSubjectDialogComponent
+    AddSubjectDialogComponent,
+    CancelRemovalBarComponent
   ],
   imports: [
     CommonModule,

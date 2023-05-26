@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header class="justify-content-between">
+        <mat-card-title>Повернути зміни</mat-card-title>
+        <mat-card-subtitle>Залишилось секунд: {{secondsLeft}}</mat-card-subtitle>
+        
+        <div>
+            <button class="accept-btn" mat-flat-button color="warn" (click)="cancelRemoval()">Відмінити видалення</button>
+
+            <button mat-icon-button color="primary" (click)="close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    
+    <mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
+</mat-card>

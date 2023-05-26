@@ -1,14 +1,14 @@
 <ng-template #noData>
-  <mat-card *ngIf="!(queryParamEmpty$ | async) && searchCompleted">
+  <mat-card *ngIf="!(queryParamEmpty$ | async) && searchCompleted && !cancelRemovalMode">
     <mat-card-title>Нічого не знайдено</mat-card-title>
   </mat-card>
 </ng-template>
 
-<mat-card *ngIf="queryParamEmpty$ | async">
+<mat-card *ngIf="(queryParamEmpty$ | async) && !cancelRemovalMode">
   <mat-card-title>Оберіть навчальний план</mat-card-title>
 </mat-card>
 
-<ng-container *ngIf="!(queryParamEmpty$ | async) && (educationPlan$ | async) as ep; else noData">
+<ng-container *ngIf="!(queryParamEmpty$ | async) && !cancelRemovalMode && (educationPlan$ | async) as ep; else noData">
   <div class="d-flex justify-content-end pb-4">
 
     <button mat-flat-button color="warn" class="delete-btn" (click)="deleteEp()">Видалити план</button>
@@ -49,3 +49,8 @@
     </mat-expansion-panel>
   </mat-accordion>
 </ng-container>
+
+<lk-cancel-removal-bar *ngIf="cancelRemovalMode"
+  (closeEvent)="cancelRemovalMode = false"
+  (cancelRemovalyEvent)="cancelRemoval()"
+></lk-cancel-removal-bar>
