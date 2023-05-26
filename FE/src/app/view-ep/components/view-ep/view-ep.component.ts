@@ -75,6 +75,12 @@ export class ViewEpComponent {
     this.changedTerms.push(data);
   }
 
+  deleteEp() {
+    const epId = this.activatedRoute.snapshot.queryParamMap.get('epId') || '';
+
+    this.viewEpService.deleteEducationPlanById(epId).subscribe();
+  }
+
   saveChanges(ep: EducationPlan) {
     const result = ep;
     this.changedTerms.forEach(({ index, data }) => {

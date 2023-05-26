@@ -64,4 +64,26 @@ export class HttpService {
       })
     );
   }
+  
+  delete(
+    url: string,
+    opts?: { [key: string]: any },
+    showToastr = true,
+    showProgressBar = true
+    ) {
+    if (showProgressBar) {
+      this.progressBarService.show();
+    }
+
+    return this.http.delete(url, opts).pipe(
+      tap((val: any) => showToastr && this.toastr.success(val?.message ?? this.toastrConfig.successMsg)),
+      finalize(() => this.progressBarService.hide()),
+      catchError((err) => {
+        if (showToastr) {
+          this.toastr.error(err.error.message || this.toastrConfig.errorMsg);
+        }
+        return throwError(() => new Error(err));
+      })
+    );
+  }
 }

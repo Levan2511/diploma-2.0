@@ -10,7 +10,9 @@
 
 <ng-container *ngIf="!(queryParamEmpty$ | async) && (educationPlan$ | async) as ep; else noData">
   <div class="d-flex justify-content-end pb-4">
-    <button mat-stroked-button class="save-excel-btn" (click)="saveExcel(ep)">Зберегти Excel</button>
+
+    <button mat-flat-button color="warn" class="delete-btn" (click)="deleteEp()">Видалити план</button>
+    <button mat-stroked-button class="action-btn" (click)="saveExcel(ep)">Зберегти Excel</button>
     <button mat-flat-button color="primary" [disabled]="!changedTerms.length" (click)="saveChanges(ep)">Зберегти зміни</button>
   </div>
 

@@ -33,9 +33,17 @@ export class DatabaseService {
             });
         });
     }
+    async deleteEducationPlanById(id) {
+        const db = await this.getData();
+        delete db.educationPlans[id];
+        return this.writeDB(db);
+    }
     async saveEducationPlan(plan, planId) {
         const db = await this.getData();
         const newData = { ...db, educationPlans: { ...db.educationPlans, [planId]: plan } };
-        return writeFile(this.pathToDB, JSON.stringify(newData), 'utf-8');
+        return this.writeDB(newData);
+    }
+    async writeDB(data) {
+        return writeFile(this.pathToDB, JSON.stringify(data), 'utf-8');
     }
 }

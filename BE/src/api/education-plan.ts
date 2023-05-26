@@ -31,7 +31,7 @@ epRouter.delete('/ep-by-id', async (req: Request, res: Response) => {
     try {
         // await dbService.deleteEducationPlanById(epId);
 
-        res.status(204).json({ message: EP_DELETED })
+        res.status(200).json({ message: EP_DELETED })
     } catch(e) {
         res.status(500);
     }

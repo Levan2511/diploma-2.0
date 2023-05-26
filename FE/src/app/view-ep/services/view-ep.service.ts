@@ -23,6 +23,14 @@ export class ViewEpService {
     }, false, false)
   }
 
+  deleteEducationPlanById(id: string) {
+    return this.http.delete(`${environment.apiUrl}/ep/ep-by-id`, {
+      params: {
+        epId: id
+      }
+    }, true, false)
+  }
+
   saveEducationPlan(planId: string, plan: EducationPlan) {
     return this.http.post(`${environment.apiUrl}/ep/save`, plan, {
       params: {
