@@ -5,6 +5,7 @@ import http from 'http';
 import authRouter from "./api/login";
 import epRouter from "./api/education-plan";
 import { fileURLToPath } from 'url';
+import healthxRouter from './api/healthz';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +20,8 @@ app.use(express.static(pathToStatic));
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => res.sendFile(path.resolve(pathToStatic, './index.html')));
+
+app.use('/healthz', healthxRouter);
 
 app.use('/login', authRouter);
 
