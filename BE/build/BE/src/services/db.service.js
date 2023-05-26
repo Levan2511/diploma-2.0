@@ -1,9 +1,12 @@
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "../../../libs/utils/total-counter.js";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
+import { EP_DELETED } from "../constants/messages";
+const DELETE_EP_TIME = 5000;
 export class DatabaseService {
     constructor() {
         this.pathToDB = resolve('./DB/db.json');
+        this.deletedEpCopy = null;
         this.getData().then((db) => this.DB = db);
     }
     async getData() {
@@ -19,7 +22,7 @@ export class DatabaseService {
     }
     async getEducationPlanById(id) {
         const { educationPlans } = await this.getData();
-        return educationPlans[id].map(cycle => {
+        return educationPlans[id]?.map(cycle => {
             return cycle.map(subj => {
                 return {
                     ...subj,
@@ -36,7 +39,27 @@ export class DatabaseService {
     async deleteEducationPlanById(id) {
         const db = await this.getData();
         delete db.educationPlans[id];
-        return this.writeDB(db);
+        // find and delete from ids array
+        db.educationPlanIds.forEach((department) => {
+            const indexOfId = department.ids.indexOf(id);
+            if (indexOfId > -1) {
+                department.ids.splice(indexOfId, 1);
+            }
+        });
+        const ep = await this.getEducationPlanById(id);
+        this.deletedEpCopy = { [id]: ep };
+        // await this.writeDB(db);
+        this.deleteTimer();
+    }
+    async cancelRemoval() {
+        if (!this.deletedEpCopy) {
+            console.log('no deletedEpCopy');
+            throw Error(EP_DELETED);
+        }
+        Object.entries(this.deletedEpCopy).forEach(async ([key, value]) => {
+            console.log('saveEducationPlan', key, value);
+            await this.saveEducationPlan(value, key);
+        });
     }
     async saveEducationPlan(plan, planId) {
         const db = await this.getData();
@@ -45,5 +68,8 @@ export class DatabaseService {
     }
     async writeDB(data) {
         return writeFile(this.pathToDB, JSON.stringify(data), 'utf-8');
+    }
+    deleteTimer() {
+        setTimeout(() => this.deletedEpCopy = null, DELETE_EP_TIME);
     }
 }

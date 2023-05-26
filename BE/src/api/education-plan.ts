@@ -1,10 +1,9 @@
 import { Request, Response, Router } from "express";
 import { DatabaseService } from "../services/db.service";
 import { EducationPlan } from "@common/ep-models";
-import { EP_DELETED, EP_NOT_FOUND, EP_UPDATED } from "../constants/messages";
+import { EP_DELETED, EP_NOT_FOUND, EP_REMOVAL_CANCELED, EP_UPDATED } from "../constants/messages";
 
 const epRouter = Router();
-
 const dbService = new DatabaseService();
 
 epRouter.get('/ids', async (req: Request, res: Response) => {
@@ -25,15 +24,27 @@ epRouter.get('/ep-by-id', async (req: Request, res: Response) => {
     return res.status(200).json(educationPlan);
 });
 
+
 epRouter.delete('/ep-by-id', async (req: Request, res: Response) => {
     const epId = req.query['epId'] as string;
 
     try {
-        // await dbService.deleteEducationPlanById(epId);
+        await dbService.deleteEducationPlanById(epId);
 
-        res.status(200).json({ message: EP_DELETED })
+        res.status(200).json({ message: EP_DELETED });
     } catch(e) {
         res.status(500);
+    }
+});
+
+epRouter.get('/cancel-removal', async (req: Request, res: Response) => {
+    try {
+        await dbService.cancelRemoval();
+
+        res.status(200).json({ message: EP_REMOVAL_CANCELED })
+    } catch(e) {
+        console.error((e as any).message);
+        res.status(400).json({ message: (e as any).message });
     }
 });
 

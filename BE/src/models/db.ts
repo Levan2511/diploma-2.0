@@ -2,7 +2,7 @@ import { EducationPlan } from "@common/ep-models";
 
 export interface Database {
   users: User[];
-  educationPlanIds: EducationPlanIds;
+  educationPlanIds: EducationPlanIds[];
   educationPlans: {
     [name: string]: EducationPlan
   }

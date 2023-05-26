@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { DatabaseService } from "../services/db.service";
-import { EP_DELETED, EP_NOT_FOUND, EP_UPDATED } from "../constants/messages";
+import { EP_DELETED, EP_NOT_FOUND, EP_REMOVAL_CANCELED, EP_UPDATED } from "../constants/messages";
 const epRouter = Router();
 const dbService = new DatabaseService();
 epRouter.get('/ids', async (req, res) => {
@@ -18,11 +18,22 @@ epRouter.get('/ep-by-id', async (req, res) => {
 epRouter.delete('/ep-by-id', async (req, res) => {
     const epId = req.query['epId'];
     try {
-        // await dbService.deleteEducationPlanById(epId);
+        await dbService.deleteEducationPlanById(epId);
         res.status(200).json({ message: EP_DELETED });
     }
     catch (e) {
         res.status(500);
+    }
+});
+epRouter.get('/cancel-removal', async (req, res) => {
+    console.log('cancel removal route');
+    try {
+        await dbService.cancelRemoval();
+        res.status(200).json({ message: EP_REMOVAL_CANCELED });
+    }
+    catch (e) {
+        console.error(e.message);
+        res.status(400).json({ message: e.message });
     }
 });
 epRouter.post('/save', async (req, res) => {

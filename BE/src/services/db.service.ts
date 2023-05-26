@@ -3,11 +3,16 @@ import { Database, EducationPlanIds, User } from "../models/db";
 import { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } from "@common/utils";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
+import { EP_DELETED } from "../constants/messages";
+
+const DELETE_EP_TIME = 5000;
 
 export class DatabaseService {
   DB!: Database;
 
   pathToDB = resolve('./DB/db.json');
+  
+  deletedEpCopy: { [id: string]: EducationPlan } | null = null;
 
   constructor() {
     this.getData().then((db) => this.DB = db);
@@ -23,7 +28,7 @@ export class DatabaseService {
     return users;
   }
 
-  async getEducationPlanIds(): Promise<EducationPlanIds> {
+  async getEducationPlanIds(): Promise<EducationPlanIds[]> {
     const { educationPlanIds } = await this.getData();
 
     return educationPlanIds;
@@ -32,7 +37,7 @@ export class DatabaseService {
   async getEducationPlanById(id: string): Promise<EducationPlan> {
     const { educationPlans } = await this.getData();
 
-    return educationPlans[id].map(cycle => {
+    return educationPlans[id]?.map(cycle => {
       return cycle.map(subj => {
         return {
           ...subj,
@@ -50,8 +55,32 @@ export class DatabaseService {
   async deleteEducationPlanById(id: string) {
     const db = await this.getData();
     delete db.educationPlans[id];
+  
+    // find and delete from ids array
+    db.educationPlanIds.forEach((department) => {
+      const indexOfId = department.ids.indexOf(id);
 
-    return this.writeDB(db);
+      if (indexOfId > -1) {
+        department.ids.splice(indexOfId, 1);
+      }
+    })
+
+    const ep = await this.getEducationPlanById(id);
+    this.deletedEpCopy = { [id]: ep };
+    
+    // await this.writeDB(db);
+    
+    this.deleteTimer();
+  }
+
+  async cancelRemoval() {
+    if (!this.deletedEpCopy) {
+      throw Error(EP_DELETED);
+    }
+
+    Object.entries(this.deletedEpCopy).forEach(async ([key, value]) => {
+      await this.saveEducationPlan(value, key);
+    });
   }
 
   async saveEducationPlan(plan: EducationPlan, planId: string): Promise<void> {
@@ -63,5 +92,9 @@ export class DatabaseService {
 
   private async writeDB(data: Database) {
     return writeFile(this.pathToDB, JSON.stringify(data), 'utf-8')
+  }
+
+  private deleteTimer() {
+    setTimeout(() => this.deletedEpCopy = null, DELETE_EP_TIME);
   }
 }
