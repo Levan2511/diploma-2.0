@@ -2,6 +2,7 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { HttpService } from './http.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 const isLoggedInLocalKey = 'isLoggedIn';
 
@@ -24,7 +25,7 @@ export class AuthorizationService {
   ) { }
 
   login$(uid: string, password: string): Observable<unknown> {
-    return this.http.post('/api/login', {
+    return this.http.post(`${environment.apiUrl}/login`, {
       uid,
       password
     }).pipe(
