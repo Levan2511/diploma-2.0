@@ -47,10 +47,21 @@ export class DatabaseService {
     });
   }
 
+  async deleteEducationPlanById(id: string) {
+    const db = await this.getData();
+    delete db.educationPlans[id];
+
+    return this.writeDB(db);
+  }
+
   async saveEducationPlan(plan: EducationPlan, planId: string): Promise<void> {
     const db = await this.getData();
     const newData = {...db, educationPlans: {...db.educationPlans, [planId]: plan }} as Database;
 
-    return writeFile(this.pathToDB, JSON.stringify(newData), 'utf-8');
+    return this.writeDB(newData);
+  }
+
+  private async writeDB(data: Database) {
+    return writeFile(this.pathToDB, JSON.stringify(data), 'utf-8')
   }
 }

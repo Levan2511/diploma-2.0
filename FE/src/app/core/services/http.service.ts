@@ -10,8 +10,8 @@ import { ProgressBarService } from './progress-bar.service';
 export class HttpService {
 
   toastrConfig = {
-    successMsg: 'Success',
-    errorMsg: 'Something went wrong'
+    successMsg: 'Успішно!',
+    errorMsg: 'Щось пішло не так :('
   }
 
   constructor(
@@ -54,7 +54,7 @@ export class HttpService {
     }
 
     return this.http.post(url, body, opts).pipe(
-      tap(() => showToastr && this.toastr.success(this.toastrConfig.successMsg)),
+      tap((val: any) => showToastr && this.toastr.success(val?.message ?? this.toastrConfig.successMsg)),
       finalize(() => this.progressBarService.hide()),
       catchError((err) => {
         if (showToastr) {
