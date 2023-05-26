@@ -12,11 +12,11 @@ export class ViewEpService {
   constructor(private http: HttpService) { }
 
   getEducationPlanIds(): Observable<SearchEP[]> {
-    return this.http.get(`${environment.apiUrl}/ids`, {}, false, false);
+    return this.http.get(`${environment.apiUrl}/ep/ids`, {}, false, false);
   }
 
   getEducationPlanById(id: string) {
-    return this.http.get<EducationPlan>(`${environment.apiUrl}/ep-by-id`, {
+    return this.http.get<EducationPlan>(`${environment.apiUrl}/ep/ep-by-id`, {
       params: {
         epId: id
       }
@@ -24,7 +24,7 @@ export class ViewEpService {
   }
 
   saveEducationPlan(planId: string, plan: EducationPlan) {
-    return this.http.post(`${environment.apiUrl}/save`, plan, {
+    return this.http.post(`${environment.apiUrl}/ep/save`, plan, {
       params: {
         epId: planId
       }
