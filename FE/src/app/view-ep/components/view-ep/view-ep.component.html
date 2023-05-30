@@ -4,12 +4,14 @@
   </mat-card>
 
   <ng-template #skeleton>
-    <div class="d-flex">
-      <ngx-skeleton-loader class="delete-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
-      <ngx-skeleton-loader class="action-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
-      <ngx-skeleton-loader [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
-    </div>
-    <ngx-skeleton-loader count="4" [theme]="{ height: '60px' }"></ngx-skeleton-loader>
+    <ng-container *ngIf="!(queryParamEmpty$ | async) && !searchCompleted">
+      <div class="d-flex">
+        <ngx-skeleton-loader class="delete-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader class="action-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+      </div>
+      <ngx-skeleton-loader count="4" [theme]="{ height: '60px' }"></ngx-skeleton-loader>
+    </ng-container>
   </ng-template>
 </ng-template>
 
