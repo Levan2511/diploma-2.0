@@ -1,8 +1,18 @@
 <ng-template #noData>
-  <mat-card *ngIf="!(queryParamEmpty$ | async) && searchCompleted && !cancelRemovalMode">
+  <mat-card *ngIf="!(queryParamEmpty$ | async) && searchCompleted && !cancelRemovalMode; else skeleton">
     <mat-card-title>Нічого не знайдено</mat-card-title>
   </mat-card>
+
+  <ng-template #skeleton>
+    <div class="d-flex">
+      <ngx-skeleton-loader class="delete-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="action-btn" [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+      <ngx-skeleton-loader [theme]="{ height: '35px', width: '130px' }"></ngx-skeleton-loader>
+    </div>
+    <ngx-skeleton-loader count="4" [theme]="{ height: '60px' }"></ngx-skeleton-loader>
+  </ng-template>
 </ng-template>
+
 
 <mat-card *ngIf="(queryParamEmpty$ | async) && !cancelRemovalMode">
   <mat-card-title>Оберіть навчальний план</mat-card-title>

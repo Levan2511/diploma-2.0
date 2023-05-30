@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "ngx-device-detector": "^6.0.1",
     "ngx-mask": "^14.2.4",
+    "ngx-skeleton-loader": "^4.0.0",
     "ngx-toastr": "15.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

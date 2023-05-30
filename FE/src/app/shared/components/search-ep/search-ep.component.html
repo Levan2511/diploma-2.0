@@ -21,4 +21,6 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+
+  <ngx-skeleton-loader *ngIf="dataLoading" appearance="line" count="1" [theme]="{ height: '50px' }"></ngx-skeleton-loader>
 </form>

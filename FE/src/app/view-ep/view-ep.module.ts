@@ -1,3 +1,4 @@
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
@@ -28,7 +29,8 @@ import { CancelRemovalBarComponent } from './components/cancel-removal-bar/cance
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgxSkeletonLoaderModule
   ],
   exports: [
     ViewEpComponent,

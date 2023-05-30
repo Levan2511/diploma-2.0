@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchEpComponent } from './components/search-ep/search-ep.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgxMaskModule } from 'ngx-mask';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgxSkeletonLoaderModule
   ],
   exports: [
     SearchEpComponent
