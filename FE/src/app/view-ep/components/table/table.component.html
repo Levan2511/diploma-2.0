@@ -34,9 +34,9 @@
   </ng-container>
 
   <!-- Edit column -->
-  <ng-container matColumnDef="edit">
+  <ng-container matColumnDef="edit" stickyEnd>
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element; let i = dataIndex">
+    <td mat-cell *matCellDef="let element; let i = dataIndex" [class.mobile-cell]="isMobile">
       <ng-container *ngIf="editRowIndex !== i">
         <button matTooltip="Редагувати" mat-icon-button aria-label="expand row" (click)="onEdit(element, i); $event.stopPropagation()">
           <mat-icon color="primary">edit</mat-icon>
@@ -60,9 +60,9 @@
   </ng-container>
 
   <!-- Delete column -->
-  <ng-container matColumnDef="delete">
+  <ng-container matColumnDef="delete" stickyEnd>
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element; let i = dataIndex">
+    <td mat-cell *matCellDef="let element; let i = dataIndex" [class.mobile-cell]="isMobile">
       <ng-container *ngIf="editRowIndex !== i">
         <button matTooltip="Видалити" mat-icon-button aria-label="expand row" (click)="onDelete(i); $event.stopPropagation()">
           <mat-icon color="warn">delete</mat-icon>
@@ -77,9 +77,9 @@
   </ng-container>
 
   <!-- Expand column -->
-  <ng-container matColumnDef="expand">
+  <ng-container matColumnDef="expand" stickyEnd>
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" [class.mobile-cell]="isMobile">
       <button matTooltip="Розкрити" mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
         <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
         <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>

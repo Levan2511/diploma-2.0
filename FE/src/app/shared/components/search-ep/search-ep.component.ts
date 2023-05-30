@@ -56,6 +56,10 @@ export class SearchEpComponent implements OnInit, OnDestroy {
     this.destroy$.next()
   }
 
+  clearInput() {
+    this.epForm.get('ep')?.setValue('');
+  }
+
   private _filterGroup(value: string): SearchEP[] {
     if (value) {
       return this.educationPrograms

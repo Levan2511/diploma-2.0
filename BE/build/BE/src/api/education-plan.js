@@ -26,7 +26,6 @@ epRouter.delete('/ep-by-id', async (req, res) => {
     }
 });
 epRouter.get('/cancel-removal', async (req, res) => {
-    console.log('cancel removal route');
     try {
         await dbService.cancelRemoval();
         res.status(200).json({ message: EP_REMOVAL_CANCELED });

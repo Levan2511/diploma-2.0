@@ -9,6 +9,7 @@ import { AddSubjectDialogComponent } from '../add-subject-dialog/add-subject-dia
 import { filter, first } from 'rxjs';
 import { TermChagedEvent } from '../../models/ep';
 import { isInteger } from 'lodash';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'lk-table',
@@ -46,6 +47,8 @@ export class TableComponent implements OnInit, OnChanges {
   isEditMode = false;
   editRowIndex!: number | undefined;
 
+  isMobile = this.deviceDetectorService.isMobile();
+
   formArr!: FormArray;
 
   customPatterns = {
@@ -56,7 +59,8 @@ export class TableComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private countTotalWorkService: CountTotalWorkService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private deviceDetectorService: DeviceDetectorService
   ) {}
 
   ngOnChanges() {

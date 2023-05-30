@@ -110,4 +110,16 @@ tr.example-element-row:not(.example-expanded-row):active {
   .cancel-icon {
     color: $decline-color;
   }
+
+  .mobile-cell {
+    padding: 4px;
+
+    & .mat-icon-button {
+      width: 20px;
+    }
+
+    & mat-icon {
+      font-size: 20px;
+    }
+  }
 }

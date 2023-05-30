@@ -6,6 +6,7 @@
 
     <input type="text"
             matInput
+            #searchInput
             formControlName="ep"
             [matAutocomplete]="autoGroup">
       <mat-autocomplete #autoGroup="matAutocomplete">
@@ -15,5 +16,9 @@
           </mat-option>
       </mat-optgroup>
     </mat-autocomplete>
+    
+    <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearInput()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
 </form>

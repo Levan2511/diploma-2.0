@@ -48,16 +48,14 @@ export class DatabaseService {
         });
         const ep = await this.getEducationPlanById(id);
         this.deletedEpCopy = { [id]: ep };
-        // await this.writeDB(db);
+        await this.writeDB(db);
         this.deleteTimer();
     }
     async cancelRemoval() {
         if (!this.deletedEpCopy) {
-            console.log('no deletedEpCopy');
             throw Error(EP_DELETED);
         }
         Object.entries(this.deletedEpCopy).forEach(async ([key, value]) => {
-            console.log('saveEducationPlan', key, value);
             await this.saveEducationPlan(value, key);
         });
     }
