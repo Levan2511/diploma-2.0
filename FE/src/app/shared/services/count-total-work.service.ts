@@ -13,7 +13,6 @@ export class CountTotalWorkService {
   constructor() { }
 
   setData(val: Record<string, TermPlan>) {
-    console.log('setData', val);
     const prevData = this.totalWorkMap$$.value;
     this.totalWorkMap$$.next({
       ...prevData,
