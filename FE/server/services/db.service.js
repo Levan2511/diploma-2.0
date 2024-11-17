@@ -4,6 +4,7 @@
 // import { readFile, writeFile } from "fs/promises";
 // import { resolve } from "path";
 // import { EP_DELETED } from "../constants/messages";
+const { getTotalSubjectClassWork, getTotalSubjectHours, getTotalSubjectLabs, getTotalSubjectLectures, getTotalSubjectPractics, getTotalSubjectSelfWork } = require('../utils/total-counter')
 const resolve = require('path').resolve;
 const {readFile, writeFile} = require('fs/promises');
 
