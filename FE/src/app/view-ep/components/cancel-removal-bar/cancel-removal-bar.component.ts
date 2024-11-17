@@ -10,9 +10,9 @@ export class CancelRemovalBarComponent implements OnInit, OnDestroy {
   @Output() closeEvent = new EventEmitter();
   @Output() cancelRemovalyEvent = new EventEmitter();
   value = 100;
-  valueTimer!: NodeJS.Timer;
+  valueTimer!: number;
   secondsLeft = 5;
-  secondsTimer!: NodeJS.Timer;
+  secondsTimer!: number;
 
   constructor(
     private cdr: ChangeDetectorRef
@@ -27,14 +27,14 @@ export class CancelRemovalBarComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    this.valueTimer = setInterval(() => {
+    this.valueTimer = window.setInterval(() => {
       if (this.value > -1) {
         this.value--;
         this.cdr.markForCheck();
       }
     }, 50);
 
-    this.secondsTimer = setInterval(() => {
+    this.secondsTimer = window.setInterval(() => {
       if (this.secondsLeft > 0) {
         this.secondsLeft--;
         this.cdr.markForCheck();
