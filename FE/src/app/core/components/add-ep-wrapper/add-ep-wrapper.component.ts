@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EducationPlan, TermPlan } from '../../../../../../libs/models/education-plan';
 import { displayedColumns } from '../../../shared/constants/key-value-ep';
+import { AddSubjectAbstract } from '../../../view-ep/components/add-subject-abstract/add-subject-abstract.component';
 
 @Component({
   selector: 'lk-add-ep-wrapper',
@@ -9,7 +10,7 @@ import { displayedColumns } from '../../../shared/constants/key-value-ep';
   styleUrls: ['./add-ep-wrapper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddEpWrapperComponent implements OnInit {
+export class AddEpWrapperComponent extends AddSubjectAbstract implements OnInit {
   keyLabelMap = displayedColumns;
 
   getLabelByKey(key: string) {
@@ -17,32 +18,18 @@ export class AddEpWrapperComponent implements OnInit {
   }
 
   createEpForm = this.fb.array<TermPlan>([
-    [{
-      cycle: 0,
-      term: 0,
-      name: '',
-      department: '',
-      lectures: 0,
-      exam: 'exam',
-      lectures1: 0,
-      lectures2: 0,
-      labs: 0,
-      labs1: 0,
-      labs2: 0,
-      practical: 0,
-      practical1: 0,
-      practical2: 0,
-      classHours: 0,
-      selfWork: 0,
-      totalHours: 0,
-      credits: 0,
-      RGR: 'RGR'
-    }]
+    []
   ])
 
   initalControlNames = Object.keys(this.createEpForm.value[0] || {})
 
-  constructor(private fb: FormBuilder) { }
+  constructor(fb: FormBuilder) {
+    super(fb)
+  }
+
+  override addSubject(): void {
+    console.log('Add subject');
+  }
 
   ngOnInit(): void {
   }

@@ -7,10 +7,11 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TotalTermTableComponent } from './components/total-term-table/total-term-table.component';
 import { GetFormGroupPipe } from '../shared/pipes/get-form-group.pipe';
-import { NgxMaskModule } from 'ngx-mask';
 import { TableComponent } from './components/table/table.component';
 import { AddSubjectDialogComponent } from './components/add-subject-dialog/add-subject-dialog.component';
 import { CancelRemovalBarComponent } from './components/cancel-removal-bar/cancel-removal-bar.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { AddSubjectFormComponent } from './components/add-subject-form/add-subject-form.component';
 
 
 
@@ -21,7 +22,7 @@ import { CancelRemovalBarComponent } from './components/cancel-removal-bar/cance
     TableComponent,
     GetFormGroupPipe,
     AddSubjectDialogComponent,
-    CancelRemovalBarComponent
+    CancelRemovalBarComponent,
   ],
   imports: [
     CommonModule,
@@ -29,9 +30,11 @@ import { CancelRemovalBarComponent } from './components/cancel-removal-bar/cance
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot(),
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    NgxMaskDirective,
+    AddSubjectFormComponent
   ],
+  providers: [provideNgxMask()],
   exports: [
     ViewEpComponent,
   ],
