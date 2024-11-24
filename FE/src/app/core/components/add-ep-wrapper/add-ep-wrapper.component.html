@@ -1,7 +1,8 @@
 <div class="term">
-    <mat-form-field *ngFor="let controlName of initalControlNames" class="example-full-width">
-        {{controlName}}
-        <mat-label>{{getLabelByKey(controlName)}}</mat-label>
-        <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
+    <mat-card>
+        <mat-card-content>
+            <button mat-flat-button>Додати Предмет</button>
+        </mat-card-content>
+    </mat-card>
+    <app-add-subject-form [form]="form" [patterns]="customPatterns"></app-add-subject-form>
 </div>
