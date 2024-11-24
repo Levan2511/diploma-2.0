@@ -2,6 +2,7 @@
 // import { DatabaseService } from "../services/db.service";
 // import { EducationPlan } from "@common/ep-models";
 // import { EP_DELETED, EP_NOT_FOUND, EP_REMOVAL_CANCELED, EP_UPDATED } from "../constants/messages";
+const { EP_NOT_FOUND } = require('../constants/messages');
 const DatabaseService = require('../services/db.service')
 const epRouter = require('express').Router();
 const dbService = new DatabaseService();
